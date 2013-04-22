@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<config>	
+	<modules>
+	<Ho_SimpleBundle>
+		<version>0.1.0</version>
+	</Ho_SimpleBundle>
+    </modules>
+
+	<global>
+		<blocks>
+			<simplebundle>
+				<class>Ho_SimpleBundle_Block</class>
+			</simplebundle>
+
+            <bundle>
+                <rewrite>
+                    <adminhtml_catalog_product_edit_tab_bundle_option>Ho_SimpleBundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option</adminhtml_catalog_product_edit_tab_bundle_option>
+                    <adminhtml_catalog_product_edit_tab_bundle_option_selection>Ho_SimpleBundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Selection</adminhtml_catalog_product_edit_tab_bundle_option_selection>
+                </rewrite>
+            </bundle>
+		</blocks>
+        <helpers>
+            <simplebundle>
+                <class>Ho_SimpleBundle_Helper</class>
+            </simplebundle>
+        </helpers>
+        <models>
+            <simplebundle>
+                <class>Ho_SimpleBundle_Model</class>
+            </simplebundle>
+
+            <bundle>
+                <rewrite>
+                    <product_type>Ho_SimpleBundle_Model_Bundle_Product_Type</product_type>
+                </rewrite>
+            </bundle>
+        </models>
+        <catalog>
+            <product>
+                <options>
+                    <bundle>
+                        <types>
+                            <fixed translate="label" module="bundle">
+                                <label>Simple</label>
+                            </fixed>
+                        </types>
+                    </bundle>
+                </options>
+            </product>
+        </catalog>
+	</global>	
+
+    <frontend>
+   		<layout>
+   			<updates>
+   				<simplebundle module="simplebundle">
+   					<file>simplebundle.xml</file>
+   				</simplebundle>
+   			</updates>
+   		</layout>
+   	</frontend>
+    <adminhtml>
+        <layout>
+            <updates>
+                <simplebundle module="simplebundle">
+                    <file>simplebundle.xml</file>
+                </simplebundle>
+            </updates>
+        </layout>
+    </adminhtml>
+</config>
