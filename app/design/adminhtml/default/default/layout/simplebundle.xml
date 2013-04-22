@@ -1,0 +1,7 @@
+<layout>
+    <PRODUCT_TYPE_bundle>
+        <reference name="product.composite.fieldset.bundle">
+            <action method="addRenderer"><type>fixed</type><block>simplebundle/adminhtml_catalogoptionstype_fixed</block></action>
+        </reference>
+    </PRODUCT_TYPE_bundle>
+</layout>
