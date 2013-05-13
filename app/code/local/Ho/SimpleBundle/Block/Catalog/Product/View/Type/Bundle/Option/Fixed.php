@@ -30,7 +30,7 @@
  * @package     Ho_SimpleBundle
  * @author      Paul Hachmang <paul@h-o.nl>
  */
-class Ho_SimpleBundle_Block_Catalog_Productviewtypebundleoption_Fixed
+class Ho_SimpleBundle_Block_Catalog_Product_View_Type_Bundle_Option_Fixed
     extends Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option
 {
     /**

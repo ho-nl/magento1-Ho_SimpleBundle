@@ -8,5 +8,5 @@ app/design/adminhtml/default/default/template/bundle/product/composite/fieldset/
 app/design/adminhtml/default/default/template/bundle/product/edit/bundle/option/*                           app/design/adminhtml/default/default/template/bundle/product/edit/bundle/option/
 app/design/adminhtml/default/default/template/bundle/product/edit/bundle/option-fixed.phtml                 app/design/adminhtml/default/default/template/bundle/product/edit/bundle/option-fixed.phtml
 app/design/frontend/base/default/template/catalog/product/list/upsell-bundles.phtml                         app/design/frontend/base/default/template/catalog/product/list/upsell-bundles.phtml
-
-
+app/design/frontend/base/default/template/bundle/catalog/product/view/type/bundle/option/*                  app/design/frontend/base/default/template/bundle/catalog/product/view/type/bundle/option/
+app/design/frontend/base/default/layout/ho/*                                                                app/design/frontend/base/default/layout/ho/

@@ -1,0 +1,68 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+/** @var $this Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option_Checkbox */
+/** @var $_option Mage_Bundle_Model_Option */
+$_option = $this->getOption();
+
+$_selections = $_option->getSelections();
+?>
+<dt><label<?php if ($_option->getRequired()) echo ' class="required"' ?>><?php echo $this->htmlEscape($_option->getTitle()) ?><?php if ($_option->getRequired()) echo '<em>*</em>' ?></label></dt>
+<dd<?php if ($_option->decoratedIsLast){?> class="last"<?php }?>>
+    <div class="input-box">
+        <?php if (count($_selections) == 1 && $_option->getRequired()): ?>
+        <input type="hidden" name="bundle_option[<?php echo $_option->getId() ?>]" value="<?php echo $_selections[0]->getSelectionId() ?>"/>
+        <?php else:?>
+        <ul class="options-list">
+            <?php foreach($_selections as $_selection): ?>
+            <?php /** @var $_selection Mage_Catalog_Model_Product */ ?>
+            <?php
+            /** @var $urlRewrite Mage_Core_Model_Url_Rewrite */
+            $urlRewrite = Mage::getModel('core/url_rewrite');
+            $urlRewrite->loadByIdPath('product/'.$_selection->getId());
+            $url = $urlRewrite->getRequestPath() ? $this->getUrl($urlRewrite->getRequestPath()) : $_selection->getProductUrl();
+            ?>
+            <li>
+				<div class="content">
+
+                    <a href="<?php echo $url ?>" class="product-image"><img src="<?php echo $_selection->getThumbnailUrl(100,100); ?>"/></a>
+                    <h3><a class="product-name" href="<?php echo $url ?>"><?php echo $_selection->getName(); ?></a></h3>
+                    <div class="price-box"><?php echo Mage::helper('core')->formatPrice($_selection->getFinalPrice(), false); ?></div>
+
+                    <div class="qty"><?php echo $_selection->getSelectionQty()*1; ?> x</div>
+
+                    <?php $_selection->getSelectionQty(); ?>
+                    <?php if($_option->getRequired()): ?>
+                        <?php echo $this->setValidationContainer('bundle-option-'.$_option->getId().'-'.$_selection->getSelectionId(), 'bundle-option-'.$_option->getId().'-container') ?>
+                    <?php endif; ?>
+                </div>
+            </li>
+            <?php endforeach; ?>
+        </ul>
+        <div id="bundle-option-<?php echo $_option->getId() ?>-container"></div>
+        <?php endif; ?>
+    </div>
+</dd>

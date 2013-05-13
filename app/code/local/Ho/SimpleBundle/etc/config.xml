@@ -28,7 +28,6 @@
             <simplebundle>
                 <class>Ho_SimpleBundle_Model</class>
             </simplebundle>
-
             <bundle>
                 <rewrite>
                     <product_type>Ho_SimpleBundle_Model_Bundle_Product_Type</product_type>
@@ -48,13 +47,12 @@
                 </options>
             </product>
         </catalog>
-	</global>	
-
+	</global>
     <frontend>
    		<layout>
    			<updates>
    				<simplebundle module="simplebundle">
-   					<file>simplebundle.xml</file>
+   					<file>ho/simplebundle.xml</file>
    				</simplebundle>
    			</updates>
    		</layout>
