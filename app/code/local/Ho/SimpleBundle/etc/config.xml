@@ -8,9 +8,9 @@
 
 	<global>
 		<blocks>
-			<simplebundle>
+			<ho_simplebundle>
 				<class>Ho_SimpleBundle_Block</class>
-			</simplebundle>
+			</ho_simplebundle>
 
             <bundle>
                 <rewrite>
@@ -20,14 +20,14 @@
             </bundle>
 		</blocks>
         <helpers>
-            <simplebundle>
+            <ho_simplebundle>
                 <class>Ho_SimpleBundle_Helper</class>
-            </simplebundle>
+            </ho_simplebundle>
         </helpers>
         <models>
-            <simplebundle>
+            <ho_simplebundle>
                 <class>Ho_SimpleBundle_Model</class>
-            </simplebundle>
+            </ho_simplebundle>
             <bundle>
                 <rewrite>
                     <product_type>Ho_SimpleBundle_Model_Bundle_Product_Type</product_type>
@@ -39,7 +39,7 @@
                 <options>
                     <bundle>
                         <types>
-                            <fixed translate="label" module="bundle">
+                            <fixed translate="label" module="ho_simplebundle">
                                 <label>Simple</label>
                             </fixed>
                         </types>
@@ -51,18 +51,18 @@
     <frontend>
    		<layout>
    			<updates>
-   				<simplebundle module="simplebundle">
+   				<ho_simplebundle module="ho_simplebundle">
    					<file>ho/simplebundle.xml</file>
-   				</simplebundle>
+   				</ho_simplebundle>
    			</updates>
    		</layout>
    	</frontend>
     <adminhtml>
         <layout>
             <updates>
-                <simplebundle module="simplebundle">
-                    <file>simplebundle.xml</file>
-                </simplebundle>
+                <ho_simplebundle module="ho_simplebundle">
+                    <file>ho/simplebundle.xml</file>
+                </ho_simplebundle>
             </updates>
         </layout>
     </adminhtml>

@@ -35,41 +35,45 @@ class Ho_SimpleBundle_Model_Bundle_Product_Type extends Mage_Bundle_Model_Produc
 {
     const OPTION_TYPE_FIXED = 'fixed';
 
+
     /**
      * Makes sure that for OPTION_TYPE_FIXED the options aren't required to enter.
      *
      * @param Mage_Catalog_Model_Product $product
+     * @return \Mage_Catalog_Model_Product_Type_Abstract
      */
     public function beforeSave($product = null)
     {
         parent::beforeSave($product);
         $product = $this->getProduct($product);
 
-        if ($product->getCanSaveBundleSelections()) {
-            $product->setTypeHasOptions(false);
-            $product->setTypeHasRequiredOptions(false);
-            $product->canAffectOptions(true);
+        if (! $product->getCanSaveBundleSelections()) {
+            return $this;
+        }
 
-            $selections = $product->getBundleSelectionsData();
-            if ($selections) {
-                if (!empty($selections)) {
-                    $options = $product->getBundleOptionsData();
-                    if ($options) {
-                        foreach ($options as $option) {
-                            if (empty($option['delete']) || 1 != (int)$option['delete']) {
-                                $product->setTypeHasOptions(true);
-                                if (1 == (int)$option['required']
-                                        // this makes a normal add to cart button, doesn't get redirected to the product page.
-                                        && (isset($option['type']) && $option['type'] == self::OPTION_TYPE_FIXED) === FALSE) {
-                                    $product->setTypeHasRequiredOptions(true);
-                                    break;
-                                }
-                            }
-                        }
-                    }
+        $product->setTypeHasOptions(false);
+        $product->setTypeHasRequiredOptions(false);
+        $product->canAffectOptions(true);
+
+        $selections = $product->getBundleSelectionsData();
+        $options = $product->getBundleOptionsData();
+        if (($selections && !empty($selections) && $options) === false) {
+            return $this;
+        }
+
+        foreach ($options as $option) {
+            if (empty($option['delete']) || 1 != (int)$option['delete']) {
+                $product->setTypeHasOptions(true);
+                if (1 == (int)$option['required']
+                        // this makes a normal add to cart button, doesn't get redirected to the product page.
+                        && (isset($option['type']) && $option['type'] == self::OPTION_TYPE_FIXED) === FALSE) {
+                    $product->setTypeHasRequiredOptions(true);
+                    break;
                 }
             }
         }
+
+        return $this;
     }
 
 
