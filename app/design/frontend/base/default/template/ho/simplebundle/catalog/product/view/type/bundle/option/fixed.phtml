@@ -59,28 +59,6 @@ $_selections = $this->getSelections();
             </li>
             <?php endforeach; ?>
         </ul>
-        <table class="totals">
-            <colgroup>
-                <col/>
-                <col width="1"/>
-            </colgroup>
-            <tbody>
-                <tr>
-                    <td class="totals-label a-right"><?php echo $this->__('Normal Price') ?></td>
-                    <td class="totals-price a-right"><?php echo $this->getOriginalPriceHtml(); ?></td>
-                </tr>
-                <tr>
-                    <td class="totals-label a-right"><?php echo $this->__('Your Discount') ?></td>
-                    <td class="totals-price a-right"><?php echo $this->getDiscountPriceHtml(); ?></td>
-                </tr>
-            </tbody>
-            <tfoot>
-                <tr>
-                    <td class="totals-label a-right"><?php echo $this->__('Now as Bundle') ?></td>
-                    <td class="totals-price a-right"><?php echo $this->getPriceHtml($this->getProduct()); ?></td>
-                </tr>
-            </tfoot>
-        </table>
         <div id="bundle-option-<?php echo $_option->getId() ?>-container"></div>
         <?php endif; ?>
     </div>

@@ -10,5 +10,5 @@ app/design/adminhtml/default/default/template/bundle/product/edit/bundle/option/
 app/design/adminhtml/default/default/template/bundle/product/edit/bundle/option-fixed.phtml     app/design/adminhtml/default/default/template/bundle/product/edit/bundle/option-fixed.phtml
 
 app/design/frontend/base/default/template/catalog/product/list/upsell-bundles.phtml             app/design/frontend/base/default/template/catalog/product/list/upsell-bundles.phtml
-app/design/frontend/base/default/template/ho/simplebundle/catalog/product/view/type/bundle/option/fixed.phtml      app/design/frontend/base/default/template/ho/simplebundle/catalog/product/view/type/bundle/option/fixed.phtml
+app/design/frontend/base/default/template/ho/*                                                  app/design/frontend/base/default/template/ho/
 app/design/frontend/base/default/layout/ho/*                                                    app/design/frontend/base/default/layout/ho/

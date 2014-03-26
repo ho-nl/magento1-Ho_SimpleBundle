@@ -51,47 +51,4 @@ class Ho_SimpleBundle_Block_Catalog_Product_View_Type_Bundle_Option_Fixed
         return $selections;
     }
 
-
-    /**
-     * @return Mage_Catalog_Model_Product
-     */
-    protected function _getProductClone() {
-        if (! $this->hasData('product_clone')) {
-            $productClone = clone $this->getProduct();
-            $productClone->unsetData('special_price');
-            $this->setData('product_clone', $productClone);
-        }
-        return $this->getData('product_clone');
-    }
-
-    /**
-     * Returns product price block html
-     *
-     * @return string
-     */
-    public function getOriginalPriceHtml()
-    {
-        $productClone = $this->_getProductClone();
-        $productClone->setData('final_price', $this->getProduct()->getPrice());
-
-        return $this->_renderSimplePriceHtml($productClone);
-    }
-
-    public function getDiscountPriceHtml() {
-        $product = $this->getProduct();
-        $productClone = $this->_getProductClone();
-
-        $price = $product->getPrice() - $product->getFinalPrice();
-        $productClone->setData('price',  $price);
-        $productClone->setData('final_price',  $price);
-
-        return $this->_renderSimplePriceHtml($productClone);
-    }
-
-    protected function _renderSimplePriceHtml(Mage_Catalog_Model_Product $product) {
-        return $this
-            ->_preparePriceRenderer(Mage_Catalog_Model_Product_Type::TYPE_SIMPLE)
-            ->setProduct($product)
-            ->toHtml();
-    }
 }

@@ -1,7 +1,14 @@
+
 <layout>
     <PRODUCT_TYPE_bundle>
         <reference name="product.info.bundle.options">
             <action method="addRenderer"><type>fixed</type><block>ho_simplebundle/catalog_product_view_type_bundle_option_fixed</block></action>
+        </reference>
+        <reference name="product.info.bundle">
+            <action method="setTemplate"><template>ho/simplebundle/catalog/product/view/type/bundle/type/bundle.phtml</template></action>
+        </reference>
+        <reference name="product.clone_prices">
+            <action method="setTemplate"><template>ho/simplebundle/catalog/product/view/price_clone.phtml</template></action>
         </reference>
     </PRODUCT_TYPE_bundle>
 </layout>
