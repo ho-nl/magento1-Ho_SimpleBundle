@@ -67,7 +67,7 @@
         <remove name="product.info.upsell"/>
         <reference name="product.info">
             <block type="core/text_list" name="product.info.upsell.container" as="upsell_products" translate="label">
-                <block type="ho_simplebundle/catalog_product_list_upsell" name="product.info.upsell.simple" as="upsell_products_simple" template="catalog/product/list/upsell.phtml">
+                <block type="ho_simplebundle/catalog_product_list_upsell" name="product.info.upsell.simple" as="upsell_products_simple" template="catalog/product/list/upsell-bundles.phtml">
                     <action method="setColumnCount"><columns>4</columns></action>
                     <action method="setShowBundles"><value>1</value></action>
                     <action method="setItemLimit"><type>upsell</type><limit>4</limit></action>
