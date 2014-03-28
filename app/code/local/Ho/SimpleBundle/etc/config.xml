@@ -28,6 +28,11 @@
             <ho_simplebundle>
                 <class>Ho_SimpleBundle_Helper</class>
             </ho_simplebundle>
+            <bundle>
+                <rewrite>
+                    <catalog_product_configuration>Ho_SimpleBundle_Helper_Bundle_Catalog_Product_Configuration</catalog_product_configuration>
+                </rewrite>
+            </bundle>
         </helpers>
         <models>
             <ho_simplebundle>
