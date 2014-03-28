@@ -18,7 +18,12 @@
                     <adminhtml_catalog_product_edit_tab_bundle_option_selection>Ho_SimpleBundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Selection</adminhtml_catalog_product_edit_tab_bundle_option_selection>
                 </rewrite>
             </bundle>
-		</blocks>
+            <catalog>
+                <rewrite>
+                    <product_list_upsell>Ho_SimpleBundle_Block_Catalog_Product_List_Upsell</product_list_upsell>
+                </rewrite>
+            </catalog>
+        </blocks>
         <helpers>
             <ho_simplebundle>
                 <class>Ho_SimpleBundle_Helper</class>

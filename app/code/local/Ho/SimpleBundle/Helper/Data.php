@@ -6,6 +6,7 @@ class Ho_SimpleBundle_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * @param Mage_Catalog_Model_Product $product
      * @return bool
+     * @todo
      */
     public function isBundleProductSimple(Mage_Catalog_Model_Product $product) {
 

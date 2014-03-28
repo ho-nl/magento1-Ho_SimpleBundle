@@ -1,14 +1,106 @@
 
 <layout>
+    <catalog_category_default>
+        <reference name="product_list">
+            <action method="addPriceBlockType"><type>bundle</type><block>ho_simplebundle/bundle_catalog_product_price</block><template>ho/simplebundle/catalog/product/price.phtml</template></action>
+        </reference>
+    </catalog_category_default>
+
+    <catalog_category_view>
+        <reference name="product_list">
+            <action method="addPriceBlockType"><type>bundle</type><block>ho_simplebundle/bundle_catalog_product_price</block><template>ho/simplebundle/catalog/product/price.phtml</template></action>
+        </reference>
+    </catalog_category_view>
+
+    <catalog_category_layered>
+        <reference name="product_list">
+            <action method="addPriceBlockType"><type>bundle</type><block>ho_simplebundle/bundle_catalog_product_price</block><template>ho/simplebundle/catalog/product/price.phtml</template></action>
+        </reference>
+    </catalog_category_layered>
+
+    <catalog_product_compare_index>
+        <reference name="catalog.compare.list">
+            <action method="addPriceBlockType"><type>bundle</type><block>ho_simplebundle/bundle_catalog_product_price</block><template>ho/simplebundle/catalog/product/price.phtml</template></action>
+        </reference>
+    </catalog_product_compare_index>
+
+    <catalogsearch_result_index>
+        <reference name="search_result_list">
+            <action method="addPriceBlockType"><type>bundle</type><block>ho_simplebundle/bundle_catalog_product_price</block><template>ho/simplebundle/catalog/product/price.phtml</template></action>
+        </reference>
+    </catalogsearch_result_index>
+
+    <catalogsearch_advanced_result>
+        <reference name="search_result_list">
+            <action method="addPriceBlockType"><type>bundle</type><block>ho_simplebundle/bundle_catalog_product_price</block><template>ho/simplebundle/catalog/product/price.phtml</template></action>
+        </reference>
+    </catalogsearch_advanced_result>
+
+    <tag_product_list>
+        <reference name="search_result_list">
+            <action method="addPriceBlockType"><type>bundle</type><block>ho_simplebundle/bundle_catalog_product_price</block><template>ho/simplebundle/catalog/product/price.phtml</template></action>
+        </reference>
+    </tag_product_list>
+
+    <tag_customer_view>
+        <reference name="customer_view">
+            <action method="addPriceBlockType"><type>bundle</type><block>ho_simplebundle/bundle_catalog_product_price</block><template>ho/simplebundle/catalog/product/price.phtml</template></action>
+        </reference>
+    </tag_customer_view>
+
+    <default>
+        <reference name="wishlist_sidebar">
+            <action method="addPriceBlockType"><type>bundle</type><block>ho_simplebundle/bundle_catalog_product_price</block><template>ho/simplebundle/catalog/product/price.phtml</template></action>
+        </reference>
+        <reference name="catalog_product_price_template">
+            <action method="addPriceBlockType"><type>bundle</type><block>ho_simplebundle/bundle_catalog_product_price</block><template>ho/simplebundle/catalog/product/price.phtml</template></action>
+        </reference>
+    </default>
+
+    <catalog_product_view>
+        <reference name="catalog.product.related">
+            <action method="addPriceBlockType"><type>bundle</type><block>ho_simplebundle/bundle_catalog_product_price</block><template>ho/simplebundle/catalog/product/price.phtml</template></action>
+        </reference>
+    </catalog_product_view>
+
+    <PRODUCT_TYPE_simple>
+        <remove name="product.info.upsell"/>
+        <reference name="product.info">
+            <block type="core/text_list" name="product.info.upsell.container" as="upsell_products" translate="label">
+                <block type="ho_simplebundle/catalog_product_list_upsell" name="product.info.upsell.simple" as="upsell_products_simple" template="catalog/product/list/upsell.phtml">
+                    <action method="setColumnCount"><columns>4</columns></action>
+                    <action method="setShowBundles"><value>1</value></action>
+                    <action method="setItemLimit"><type>upsell</type><limit>4</limit></action>
+                </block>
+                <block type="ho_simplebundle/catalog_product_list_upsell" name="product.info.upsell.bundle" as="upsell_products_bundle" template="catalog/product/list/upsell.phtml">
+                    <action method="setColumnCount"><columns>4</columns></action>
+                    <action method="setShowBundles"><value>0</value></action>
+                    <action method="setItemLimit"><type>upsell</type><limit>4</limit></action>
+                </block>
+            </block>
+        </reference>
+        <!--<reference name="product.info.upsell">-->
+            <!--<action method="addPriceBlockType"><type>bundle</type><block>ho_simplebundle/bundle_catalog_product_price</block><template>ho/simplebundle/catalog/product/price.phtml</template></action>-->
+        <!--</reference>-->
+    </PRODUCT_TYPE_simple>
+
+    <checkout_cart_index>
+        <reference name="checkout.cart.crosssell">
+            <action method="addPriceBlockType"><type>bundle</type><block>ho_simplebundle/bundle_catalog_product_price</block><template>ho/simplebundle/catalog/product/price.phtml</template></action>
+        </reference>
+    </checkout_cart_index>
+
     <PRODUCT_TYPE_bundle>
         <reference name="product.info.bundle.options">
-            <action method="addRenderer"><type>fixed</type><block>ho_simplebundle/catalog_product_view_type_bundle_option_fixed</block></action>
+            <action method="addRenderer"><type>fixed</type><block>ho_simplebundle/bundle_catalog_product_view_type_option_fixed</block></action>
         </reference>
         <reference name="product.info.bundle">
+            <action method="addPriceBlockType"><type>bundle</type><block>ho_simplebundle/bundle_catalog_product_price</block><template>ho/simplebundle/catalog/product/price.phtml</template></action>
             <action method="setTemplate"><template>ho/simplebundle/catalog/product/view/type/bundle/type/bundle.phtml</template></action>
         </reference>
         <reference name="product.clone_prices">
-            <action method="setTemplate"><template>ho/simplebundle/catalog/product/view/price_clone.phtml</template></action>
+            <!--<action method="setTemplate"><template>ho/simplebundle/catalog/product/view/price_clone.phtml</template></action>-->
+            <action method="addPriceBlockType"><type>bundle</type><block>ho_simplebundle/bundle_catalog_product_price</block><template>ho/simplebundle/catalog/product/price.phtml</template></action>
         </reference>
     </PRODUCT_TYPE_bundle>
 </layout>

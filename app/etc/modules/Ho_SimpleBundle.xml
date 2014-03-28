@@ -4,6 +4,10 @@
         <Ho_SimpleBundle>
             <active>true</active>
             <codePool>local</codePool>
+            <depends>
+                <Mage_Bundle />
+                <Mage_Catalog />
+            </depends>
         </Ho_SimpleBundle>
     </modules>
 </config>
