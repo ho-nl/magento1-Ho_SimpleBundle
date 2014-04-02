@@ -19,6 +19,10 @@
  
 class Ho_SimpleBundle_Block_Catalog_Product_List_Upsell extends Mage_Catalog_Block_Product_List_Upsell {
 
+    public function getLoadedProductCollection() {
+        return $this->getItemCollection();
+    }
+
     protected function _prepareData()
     {
         $product = Mage::registry('product');

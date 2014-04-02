@@ -66,6 +66,18 @@
    				</ho_simplebundle>
    			</updates>
    		</layout>
+        <ho_bootstrap>
+            <product_list>
+                <renderers>
+                    <simplebundle>
+                        <mode>simplebundle</mode>
+                        <type_id>default</type_id>
+                        <block>ho_bootstrap/catalog_product_list_type_default</block>
+                        <template>catalog/product/list/type/default/simplebundle.phtml</template>
+                    </simplebundle>
+                </renderers>
+            </product_list>
+        </ho_bootstrap>
    	</frontend>
     <adminhtml>
         <layout>
@@ -76,4 +88,15 @@
             </updates>
         </layout>
     </adminhtml>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <Ho_SimpleBundle before="Mage_Adminhtml">Ho_SimpleBundle_Adminhtml</Ho_SimpleBundle>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
 </config>

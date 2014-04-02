@@ -4,4 +4,36 @@
             <action method="addRenderer"><type>fixed</type><block>simplebundle/adminhtml_catalogoptionstype_fixed</block></action>
         </reference>
     </PRODUCT_TYPE_bundle>
+
+    <adminhtml_catalog_product_upsell>
+        <reference name="root">
+            <block type="ho_simplebundle/adminhtml_catalog_product_edit_tab_upsell_config"
+                   name="admin.product.edit.tab.upsell.config" before="-">
+                <block type="ho_simplebundle/adminhtml_catalog_product_edit_tab_upsell_config_bundle"
+                       name="catalog.product.edit.tab.upsell.config.bundle" as="simple"/>
+                <block type="ho_simplebundle/adminhtml_catalog_product_edit_tab_upsell_config_grid"
+                        name="catalog.product.edit.tab.upsell.config.grid"/>
+            </block>
+
+            <block type="adminhtml/widget_grid_serializer" name="admin.product.edit.tab.upsell.config.grid.serializer">
+                <reference name="admin.product.edit.tab.upsell.config.grid.serializer">
+                    <action method="initSerializerBlock">
+                        <grid_block_name>catalog.product.edit.tab.upsell.config.grid</grid_block_name>
+                        <data_callback>getProductsUpsellBundle</data_callback>
+                        <hidden_input_name>in_products[bundle]</hidden_input_name>
+                        <reload_param_name>products_upsell_bundle</reload_param_name>
+                    </action>
+                    <!--<action method="addColumnInputName">-->
+                        <!--<input_name>position</input_name>-->
+                    <!--</action>-->
+                </reference>
+            </block>
+        </reference>
+    </adminhtml_catalog_product_upsell>
+
+    <adminhtml_catalog_upsell_product_bundle>
+        <block type="core/text_list" name="root">
+            <block type="ho_simplebundle/adminhtml_catalog_product_edit_tab_upsell_config_grid" name="catalog.product.edit.tab.upsell.config.grid" />
+        </block>
+    </adminhtml_catalog_upsell_product_bundle>
 </layout>

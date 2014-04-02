@@ -19,19 +19,19 @@ class Ho_SimpleBundle_Helper_Data extends Mage_Core_Helper_Abstract
      * @param Mage_Catalog_Model_Product $product
      * @return string
      */
-    public function getOriginalPriceHtml(Mage_Catalog_Model_Product $product)
+    public function getOriginalPriceHtml(Mage_Catalog_Model_Product $product, $qty = 1)
     {
-        $price = $product->getPrice();
+        $price = $product->getPrice() * $qty;
         return $this->_renderPrice($product, $price);
     }
 
-    public function getDiscountPriceHtml(Mage_Catalog_Model_Product $product) {
-        $price = $product->getPrice() - $product->getFinalPrice();
+    public function getDiscountPriceHtml(Mage_Catalog_Model_Product $product, $qty = 1) {
+        $price = ($product->getPrice() - $product->getFinalPrice()) * $qty;
         return $this->_renderPrice($product, $price);
     }
 
-    public function getFinalPriceHtml(Mage_Catalog_Model_Product $product) {
-        $price = $product->getFinalPrice();
+    public function getFinalPriceHtml(Mage_Catalog_Model_Product $product, $qty = 1) {
+        $price = $product->getFinalPrice() * $qty;
         return $this->_renderPrice($product, $price);
     }
 
