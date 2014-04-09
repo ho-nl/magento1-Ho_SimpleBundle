@@ -24,11 +24,29 @@
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
 ?>
+<?php /** @var $this Ho_SimpleBundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Upsell_Config */ ?>
 <?php if (!$this->isReadonly()):?>
-<div id="<?php echo $this->getHtmlId() ?>_simple_form" class="ignore-validate configurable-simple-product">
-<?php echo $this->getChildHtml('simple'); ?>
+<div id="<?php echo $this->getHtmlId() ?>_simplebundle_form" class="ignore-validate configurable-simple-product">
+<?php echo $this->getChildHtml('simplebundle'); ?>
 </div>
 <?php endif;?>
 
+<?php echo $this->getChildHtml('catalog.product.edit.tab.upsell'); ?>
+<?php echo $this->getChildHtml('upsell_grid_serializer'); ?>
+
+<style>
+.form-list td.value .grid select{
+    width: inherit;
+}
+</style>
 <script type="text/javascript">
+
+simpleBundle = new Product.SimpleBundle('<?php echo $this->getHtmlId() ?>_',<?php echo $this->getGridJsObject() ?>);
+simpleBundle.createQuickUrl = '<?php echo $this->getQuickCreationUrl() ?>';
+//console.log(simpleBundle, 'yo');
+<!--Validation.add(-->
+<!--    'validate-configurable',-->
+<!--    '--><?php //echo $this->escapeJs(Mage::helper('catalog')->__('Product with this combination of attributes already associated to configurable.')) ?><!--',-->
+<!--    superProduct.checkCreationUniqueAttributes.bind(superProduct)-->
+<!--)-->
 </script>

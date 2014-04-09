@@ -38,8 +38,8 @@ class Ho_SimpleBundle_Block_Catalog_Product_List_Upsell extends Mage_Catalog_Blo
 
             $this->_addProductAttributesAndPrices($this->_itemCollection);
         }
-//        Mage::getSingleton('catalog/product_status')->addSaleableFilterToCollection($this->_itemCollection);
-        Mage::getSingleton('catalog/product_visibility')->addVisibleInCatalogFilterToCollection($this->_itemCollection);
+        Mage::getSingleton('catalog/product_status')->addSaleableFilterToCollection($this->_itemCollection);
+//        Mage::getSingleton('catalog/product_visibility')->addVisibleInCatalogFilterToCollection($this->_itemCollection);
 
         if ($this->getItemLimit('upsell') > 0) {
             $this->_itemCollection->setPageSize($this->getItemLimit('upsell'));

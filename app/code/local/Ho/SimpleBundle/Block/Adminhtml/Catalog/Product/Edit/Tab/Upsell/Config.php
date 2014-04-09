@@ -43,7 +43,7 @@ class Ho_SimpleBundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Upsell_Config ext
         parent::__construct();
         $this->setProductId($this->getRequest()->getParam('id'));
         $this->setTemplate('ho/simplebundle/product/edit/upsell/config.phtml');
-        $this->setId('config_super_product');
+        $this->setId('config_bundle_product');
         $this->setCanEditPrice(true);
         $this->setCanReadPrice(true);
     }
@@ -183,23 +183,13 @@ class Ho_SimpleBundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Upsell_Config ext
     }
 
     /**
-     * Retrieve Grid child HTML
-     *
-     * @return string
-     */
-    public function getGridHtml()
-    {
-        return $this->getChildHtml('grid');
-    }
-
-    /**
      * Retrieve Grid JavaScript object name
      *
      * @return string
      */
     public function getGridJsObject()
     {
-        return $this->getChild('grid')->getJsObjectName();
+        return $this->getLayout()->getBlock('catalog.product.edit.tab.upsell')->getJsObjectName();
     }
 
     /**
@@ -210,10 +200,8 @@ class Ho_SimpleBundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Upsell_Config ext
     public function getQuickCreationUrl()
     {
         return $this->getUrl(
-            '*/*/quickCreate',
-            array(
-                'product'  => $this->_getProduct()->getId()
-            )
+            '*/catalog_upsell_product/quickCreate',
+            array('id' => $this->getRequest()->getParam('id'))
         );
     }
 

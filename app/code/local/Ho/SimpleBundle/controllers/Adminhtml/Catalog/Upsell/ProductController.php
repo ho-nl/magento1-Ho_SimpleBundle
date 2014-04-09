@@ -172,97 +172,129 @@ class Ho_SimpleBundle_Adminhtml_Catalog_Upsell_ProductController extends Mage_Ad
     {
         $result = array();
 
-        /* @var $configurableProduct Mage_Catalog_Model_Product */
-        $configurableProduct = Mage::getModel('catalog/product')
-            ->setStoreId(Mage_Core_Model_App::ADMIN_STORE_ID)
-            ->load($this->getRequest()->getParam('product'));
+        try {
+            /* @var $parentProduct Mage_Catalog_Model_Product */
+            $parentProduct = Mage::getModel('catalog/product')
+                ->setStoreId(Mage_Core_Model_App::ADMIN_STORE_ID)
+                ->load($this->getRequest()->getParam('id'));
 
-        if (!$configurableProduct->isConfigurable()) {
-            // If invalid parent product
-            $this->_redirect('*/*/');
-            return;
-        }
-
-        /* @var $product Mage_Catalog_Model_Product */
-
-        $product = Mage::getModel('catalog/product')
-            ->setStoreId(0)
-            ->setTypeId(Mage_Catalog_Model_Product_Type::TYPE_SIMPLE)
-            ->setAttributeSetId($configurableProduct->getAttributeSetId());
-
-
-        foreach ($product->getTypeInstance()->getEditableAttributes() as $attribute) {
-            if ($attribute->getIsUnique()
-                || $attribute->getAttributeCode() == 'url_key'
-                || $attribute->getFrontend()->getInputType() == 'gallery'
-                || $attribute->getFrontend()->getInputType() == 'media_image'
-                || !$attribute->getIsVisible()) {
-                continue;
+            if (!$parentProduct->getId()) {
+                // If invalid parent product
+                $this->_redirect('*/*/');
+                return;
             }
 
-            $product->setData(
-                $attribute->getAttributeCode(),
-                $configurableProduct->getData($attribute->getAttributeCode())
+            /* @var $product Mage_Catalog_Model_Product */
+
+            $product = Mage::getModel('catalog/product')
+                ->setStoreId(0)
+                ->setTypeId(Mage_Catalog_Model_Product_Type::TYPE_BUNDLE)
+                ->setAttributeSetId($parentProduct->getAttributeSetId());
+
+            foreach ($product->getTypeInstance()->getEditableAttributes() as $attribute) {
+                if ($attribute->getIsUnique()
+                    || $attribute->getAttributeCode() == 'url_key'
+                    || $attribute->getFrontend()->getInputType() == 'gallery'
+                    || $attribute->getFrontend()->getInputType() == 'media_image'
+                    || !$attribute->getIsVisible()) {
+                    continue;
+                }
+
+                $product->setData(
+                    $attribute->getAttributeCode(),
+                    $parentProduct->getData($attribute->getAttributeCode())
+                );
+            }
+
+            $bundleProductData = $this->getRequest()->getParam('bundle_product', array());
+            $product->addData($bundleProductData);
+
+            Mage::helper('adminhtml/data')->prepareFilterString($product->getProducts());
+
+            //add the product data.
+            $childProducts = Mage::helper('adminhtml/js')->decodeGridSerializedInput($product->getProducts());
+
+            if (! $childProducts) {
+                Mage::throwException($this->__('Please select products for the bundle'));
+            }
+
+            $product->setBundleOptionsData(array(array(
+                  'title' => '',
+                  'delete' => 0,
+                  'type' =>   Ho_SimpleBundle_Model_Bundle_Product_Type::OPTION_TYPE_FIXED,
+                  'required' => 1,
+                  'position' => 0,
+            )));
+            $bundleOptionsData = array();
+
+            //Add the current product
+            $bundleOptionsData[$parentProduct->getId()] = array(
+                'selection_id' => '',
+                'option_id' => '',
+                'delete' => 0,
+                'product_id' => $parentProduct->getId(),
+                'selection_price_value' => '',
+                'selection_price_type' => '0',
+                'selection_qty' => 1,
+                'selection_can_change_qty' => '0',
+                'position' => 0,
+                'is_default' => 1,
             );
-        }
 
-        $product->addData($this->getRequest()->getParam('simple_product', array()));
-        $product->setWebsiteIds($configurableProduct->getWebsiteIds());
+            //sAdd the additional products
+            foreach ($childProducts as $productId => $childProduct) {
+                $bundleOptionsData[$productId] = array(
+                    'selection_id' => '',
+                    'option_id' => '',
+                    'delete' => 0,
+                    'product_id' => $productId,
+                    'selection_price_value' => '',
+                    'selection_price_type' => '0',
+                    'selection_qty' => max(1, $childProduct['qty']),
+                    'selection_can_change_qty' => '0',
+                    'position' => $childProduct['position'] + 1,
+                    'is_default' => 1,
+                );
+            }
+            $product->setBundleSelectionsData(array($bundleOptionsData));
+            $product->setWebsiteIds($parentProduct->getWebsiteIds());
 
-        $autogenerateOptions = array();
-        $result['attributes'] = array();
+            $productCollection = $product->getCollection();
+            $productCollection->addFieldToFilter('entity_id', array('in'=> array_keys($bundleOptionsData)));
+            $productCollection->addAttributeToSelect(array('name','price', 'special_price'));
 
-        foreach ($configurableProduct->getTypeInstance()->getConfigurableAttributes() as $attribute) {
-            $value = $product->getAttributeText($attribute->getProductAttribute()->getAttributeCode());
-            $autogenerateOptions[] = $value;
-            $result['attributes'][] = array(
-                'label'         => $value,
-                'value_index'   => $product->getData($attribute->getProductAttribute()->getAttributeCode()),
-                'attribute_id'  => $attribute->getProductAttribute()->getId()
-            );
-        }
+            $prices = array();
+            $name = array();
+            foreach ($bundleOptionsData as $productId => $bundleOption) {
+                /** @var Mage_Catalog_Model_Product $childProduct */
+                $childProduct = $productCollection->getItemById($productId);
+                $prices[] = (float) $childProduct->getFinalPrice($bundleOption['selection_qty']) * $bundleOption['selection_qty'];
+                $name[] = sprintf('%s × %s', $bundleOption['selection_qty'], $childProduct->getName());
+            }
 
-        if ($product->getNameAutogenerate()) {
-            $product->setName($configurableProduct->getName() . '-' . implode('-', $autogenerateOptions));
-        }
+            if ($product->getNameAutogenerate()) {
+                $product->setName(implode(' + ', $name));
+            }
+            if ($product->getSkuAutogenerate()) {
+                $product->setSku(implode('+', $productCollection->getColumnValues('sku')));
+            } else {
+                $productInfo = $this->getRequest()->getParam('product');
+                if (isset($productInfo['bundle_product_sku_type']) && $productInfo['bundle_product_sku_type']) {
+                    $product->setSkuType(1);
+                }
+            }
 
-        if ($product->getSkuAutogenerate()) {
-            $product->setSku($configurableProduct->getSku() . '-' . implode('-', $autogenerateOptions));
-        }
+            $productInfo = $this->getRequest()->getParam('product');
+            if (isset($productInfo['bundle_product_weight_type']) && $productInfo['bundle_product_weight_type']) {
+                $product->setWeightType(1);
+            }
 
-        if (is_array($product->getPricing())) {
-           $result['pricing'] = $product->getPricing();
-           $additionalPrice = 0;
-           foreach ($product->getPricing() as $pricing) {
-               if (empty($pricing['value'])) {
-                   continue;
-               }
 
-               if (!empty($pricing['is_percent'])) {
-                   $pricing['value'] = ($pricing['value']/100)*$product->getPrice();
-               }
-
-               $additionalPrice += $pricing['value'];
-           }
-
-           $product->setPrice($product->getPrice() + $additionalPrice);
-           $product->unsPricing();
-        }
-
-        try {
-            /**
-             * @todo implement full validation process with errors returning which are ignoring now
-             */
-//            if (is_array($errors = $product->validate())) {
-//                $strErrors = array();
-//                foreach($errors as $code=>$error) {
-//                    $codeLabel = $product->getResource()->getAttribute($code)->getFrontend()->getLabel();
-//                    $strErrors[] = ($error === true)? Mage::helper('catalog')->__('Value for "%s" is invalid.', $codeLabel) : Mage::helper('catalog')->__('Value for "%s" is invalid: %s', $codeLabel, $error);
-//                }
-//                Mage::throwException('data_invalid', implode("\n", $strErrors));
-//            }
+            $product->setPriceType(Mage_Bundle_Model_Product_Price::PRICE_TYPE_FIXED);
+            $product->setPrice(array_sum($prices));
 
             $product->validate();
+            Mage::register('product', $product);
             $product->save();
             $result['product_id'] = $product->getId();
             $this->_getSession()->addSuccess(Mage::helper('catalog')->__('The product has been created.'));

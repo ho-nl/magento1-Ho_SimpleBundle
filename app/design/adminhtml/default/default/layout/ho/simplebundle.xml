@@ -1,4 +1,9 @@
 <layout>
+    <default>
+        <reference name="head">
+            <action method="addJs"><script>ho/simplebundle/product.js</script></action>
+        </reference>
+    </default>
     <PRODUCT_TYPE_bundle>
         <reference name="product.composite.fieldset.bundle">
             <action method="addRenderer"><type>fixed</type><block>simplebundle/adminhtml_catalogoptionstype_fixed</block></action>
@@ -7,26 +12,28 @@
 
     <adminhtml_catalog_product_upsell>
         <reference name="root">
+            <action method="unsetChild"><child>catalog.product.edit.tab.upsell</child></action>
+            <action method="unsetChild"><child>upsell_grid_serializer</child></action>
             <block type="ho_simplebundle/adminhtml_catalog_product_edit_tab_upsell_config"
                    name="admin.product.edit.tab.upsell.config" before="-">
                 <block type="ho_simplebundle/adminhtml_catalog_product_edit_tab_upsell_config_bundle"
-                       name="catalog.product.edit.tab.upsell.config.bundle" as="simple"/>
-                <block type="ho_simplebundle/adminhtml_catalog_product_edit_tab_upsell_config_grid"
-                        name="catalog.product.edit.tab.upsell.config.grid"/>
-            </block>
+                       name="catalog.product.edit.tab.upsell.config.bundle" as="simplebundle">
+                    <block type="ho_simplebundle/adminhtml_catalog_product_edit_tab_upsell_config_grid"
+                            name="catalog.product.edit.tab.upsell.config.grid" as="grid"/>
+                    <block type="adminhtml/widget_grid_serializer" name="catalog.product.edit.tab.upsell.config.grid.serializer" as="serializer">
+                        <action method="initSerializerBlock">
+                            <grid_block_name>catalog.product.edit.tab.upsell.config.grid</grid_block_name>
+                            <data_callback>getProductsUpsellBundle</data_callback>
+                            <hidden_input_name>bundle_product[products]</hidden_input_name>
+                            <reload_param_name>products_upsell_bundle</reload_param_name>
+                        </action>
+                        <action method="addColumnInputName"><input_name>position</input_name></action>
+                        <action method="addColumnInputName"><input_name>qty</input_name></action>
+                    </block>
+                </block>
 
-            <block type="adminhtml/widget_grid_serializer" name="admin.product.edit.tab.upsell.config.grid.serializer">
-                <reference name="admin.product.edit.tab.upsell.config.grid.serializer">
-                    <action method="initSerializerBlock">
-                        <grid_block_name>catalog.product.edit.tab.upsell.config.grid</grid_block_name>
-                        <data_callback>getProductsUpsellBundle</data_callback>
-                        <hidden_input_name>in_products[bundle]</hidden_input_name>
-                        <reload_param_name>products_upsell_bundle</reload_param_name>
-                    </action>
-                    <!--<action method="addColumnInputName">-->
-                        <!--<input_name>position</input_name>-->
-                    <!--</action>-->
-                </reference>
+                <action method="insert"><block>catalog.product.edit.tab.upsell</block></action>
+                <action method="insert"><block>upsell_grid_serializer</block></action>
             </block>
         </reference>
     </adminhtml_catalog_product_upsell>

@@ -13,3 +13,5 @@ app/design/adminhtml/default/default/template/ho/simplebundle/*                 
 app/design/frontend/base/default/template/catalog/product/list/upsell-bundles.phtml             app/design/frontend/base/default/template/catalog/product/list/upsell-bundles.phtml
 app/design/frontend/base/default/template/ho/*                                                  app/design/frontend/base/default/template/ho/
 app/design/frontend/base/default/layout/ho/*                                                    app/design/frontend/base/default/layout/ho/
+
+js/ho/*                                                                                         js/ho/

@@ -168,21 +168,6 @@ class Ho_SimpleBundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Upsell_Config_Gri
 
     protected function _prepareColumns()
     {
-        $product = $this->_getProduct();
-//        $attributes = $product->getTypeInstance(true)->getConfigurableAttributes($product);
-
-        if (!$this->isReadonly()) {
-            $this->addColumn('in_products', array(
-                'header_css_class' => 'a-center',
-                'type'      => 'checkbox',
-                'name'      => 'in_products[bundle]',
-                'values'    => $this->_getSelectedProducts(),
-                'align'     => 'center',
-                'index'     => 'entity_id',
-//                'renderer'  => 'adminhtml/catalog_product_edit_tab_super_config_grid_renderer_checkbox',
-            ));
-        }
-
         $this->addColumn('entity_id', array(
             'header'    => Mage::helper('catalog')->__('ID'),
             'sortable'  => true,
@@ -200,13 +185,12 @@ class Ho_SimpleBundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Upsell_Config_Gri
             ->load()
             ->toOptionHash();
 
-        $this->addColumn('set_name',
-            array(
-                'header'=> Mage::helper('catalog')->__('Attrib. Set Name'),
-                'width' => '130px',
-                'index' => 'attribute_set_id',
-                'type'  => 'options',
-                'options' => $sets,
+        $this->addColumn('set_name', array(
+            'header'=> Mage::helper('catalog')->__('Attrib. Set Name'),
+            'width' => '130px',
+            'index' => 'attribute_set_id',
+            'type'  => 'options',
+            'options' => $sets,
         ));
 
         $this->addColumn('sku', array(
@@ -229,33 +213,38 @@ class Ho_SimpleBundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Upsell_Config_Gri
             'index'     => 'is_saleable'
         ));
 
-//        foreach ($attributes as $attribute) {
-//            $productAttribute = $attribute->getProductAttribute();
-//            $productAttribute->getSource();
-//            $this->addColumn($productAttribute->getAttributeCode(), array(
-//                'header'    => $productAttribute->getFrontend()->getLabel(),
-//                'index'     => $productAttribute->getAttributeCode(),
-//                'type'      => $productAttribute->getSourceModel() ? 'options' : 'number',
-//                'options'   => $productAttribute->getSourceModel() ? $this->getOptions($attribute) : ''
-//            ));
-//        }
+        if (!$this->isReadonly()) {
+            $this->addColumn('in_products', array(
+                'header_css_class' => 'a-center',
+                'type'      => 'checkbox',
+                'name'      => 'bundle_product[products]',
+                'values'    => $this->_getSelectedProducts(),
+                'align'     => 'center',
+                'index'     => 'entity_id',
+//                'renderer'  => 'adminhtml/catalog_product_edit_tab_super_config_grid_renderer_checkbox',
+            ));
+        }
+        $this->addColumn('position', array(
+            'header'            => Mage::helper('catalog/data')->__('Position'),
+            'name'              => 'position',
+            'type'              => 'number',
+            'width'             => 60,
+            'validate_class'    => 'validate-number',
+            'index'             => 'position',
+            'editable'          => true,
+            'edit_only'         => !$this->_getProduct()->getId()
+        ));
 
-//         $this->addColumn('action',
-//            array(
-//                'header'    => Mage::helper('catalog')->__('Action'),
-//                'type'      => 'action',
-//                'getter'     => 'getId',
-//                'actions'   => array(
-//                    array(
-//                        'caption' => Mage::helper('catalog')->__('Edit'),
-//                        'url'     => $this->getEditParamsForAssociated(),
-//                        'field'   => 'id',
-//                        'onclick'  => 'superProduct.createPopup(this.href);return false;'
-//                    )
-//                ),
-//                'filter'    => false,
-//                'sortable'  => false
-//        ));
+        $this->addColumn('qty', array(
+            'header'            => Mage::helper('catalog/data')->__('Qty'),
+            'name'              => 'qty',
+            'type'              => 'number',
+            'width'             => 60,
+            'validate_class'    => 'validate-number',
+            'index'             => 'qty',
+            'editable'          => true,
+            'edit_only'         => !$this->_getProduct()->getId()
+        ));
 
         return parent::_prepareColumns();
     }
@@ -270,25 +259,6 @@ class Ho_SimpleBundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Upsell_Config_Gri
                 'product'  => $this->_getProduct()->getId()
             )
         );
-    }
-
-    /**
-     * Retrieve Required attributes Ids (comma separated)
-     *
-     * @return string
-     */
-    protected function _getRequiredAttributesIds()
-    {
-        $attributesIds = array();
-//        foreach (
-//            $this->_getProduct()
-//                ->getTypeInstance(true)
-//                ->getConfigurableAttributes($this->_getProduct()) as $attribute
-//        ) {
-//            $attributesIds[] = $attribute->getProductAttribute()->getId();
-//        }
-
-        return implode(',', $attributesIds);
     }
 
     public function getOptions($attribute) {
