@@ -31,7 +31,8 @@
  * @package     Mage_Bundle
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Ho_SimpleBundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option extends Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option
+class Ho_SimpleBundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option
+    extends Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option
 {
 
     /**
@@ -42,6 +43,6 @@ class Ho_SimpleBundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option ext
     public function __construct()
     {
         parent::__construct();
-        $this->setTemplate('bundle/product/edit/bundle/option-fixed.phtml');
+        $this->setTemplate('ho/simplebundle/product/edit/bundle/option/fixed.phtml');
     }
 }

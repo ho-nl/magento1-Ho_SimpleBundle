@@ -32,8 +32,8 @@
  * @package     Mage_Bundle
  * @author      Magento Core Team <core@magentocommerce.com>
  */
-class Ho_SimpleBundle_Block_Adminhtml_Catalogoptionstype_Fixed
-    extends Ho_SimpleBundle_Block_Catalog_Productviewtypebundleoption_Fixed
+class Ho_SimpleBundle_Block_Adminhtml_Catalog_Product_View_Type_Bundle_Type_Fixed
+    extends Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option
 {
     /**
      * Set template
@@ -43,7 +43,7 @@ class Ho_SimpleBundle_Block_Adminhtml_Catalogoptionstype_Fixed
     protected function _construct()
     {
         parent::_construct();
-        $this->setTemplate('bundle/product/composite/fieldset/options/type/fixed.phtml');
+        $this->setTemplate('ho/simplebundle/product/composite/fieldset/options/type/fixed.phtml');
     }
 
     /**

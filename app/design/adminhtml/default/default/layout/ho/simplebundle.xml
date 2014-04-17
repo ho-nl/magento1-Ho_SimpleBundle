@@ -6,7 +6,7 @@
     </default>
     <PRODUCT_TYPE_bundle>
         <reference name="product.composite.fieldset.bundle">
-            <action method="addRenderer"><type>fixed</type><block>simplebundle/adminhtml_catalogoptionstype_fixed</block></action>
+            <action method="addRenderer"><type>fixed</type><block>ho_simplebundle/adminhtml_catalog_product_view_type_bundle_type_fixed</block></action>
         </reference>
     </PRODUCT_TYPE_bundle>
 
