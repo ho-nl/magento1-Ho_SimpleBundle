@@ -122,7 +122,7 @@ class Ho_SimpleBundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Upsell_Config_Gri
             ->addAttributeToSelect('attribute_set_id')
             ->addAttributeToSelect('type_id')
             ->addAttributeToSelect('price')
-            ->addFieldToFilter('attribute_set_id',$product->getAttributeSetId())
+//            ->addFieldToFilter('attribute_set_id',$product->getAttributeSetId())
             ->addFieldToFilter('type_id', Mage::helper('bundle')->getAllowedSelectionTypes())
             ->addFilterByRequiredOptions()
             ->joinAttribute('name', 'catalog_product/name', 'entity_id', null, 'inner');
