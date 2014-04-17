@@ -61,7 +61,7 @@ $_optionsCollection = $_product->getTypeInstance(true)->getSelectionsCollection(
             <tr>
                 <td><?php echo $_option->getSelectionQty() * 1; ?> &times; <a href="<?php echo $_option->getProductUrl() ?>"><?php echo $_option->getName(); ?></a></td>
                 <td>
-                    <?php echo $_bundleHelper->getFinalPriceHtml($_option, $_option->getSelectionQty()); ?>
+                    <?php echo $_bundleHelper->getFinalPriceHtml($_option); ?>
                 </td>
             </tr>
             <?php endforeach; ?>
@@ -77,7 +77,7 @@ $_optionsCollection = $_product->getTypeInstance(true)->getSelectionsCollection(
                 </tr>
                 <tr>
                     <td><?php echo $this->__('Bundle Price:') ?></td>
-                    <td><?php echo $_bundleHelper->getFinalPriceHtml($_product); ?></td>
+                    <td><?php echo $_bundleHelper->getMaxPriceHtml($_product); ?></td>
                 </tr>
             </tfoot>
         </table>
