@@ -54,7 +54,7 @@ class Ho_SimpleBundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Upsell_Config_Bun
         $this->_addElementTypes($fieldset);
         $attributesConfig = array(
             'autogenerate' => array('name', 'sku'),
-            'additional'   => array('name', 'sku', 'visibility', 'status', 'special_price', 'weight')
+            'additional'   => array('name', 'sku', 'status', 'special_price', 'weight')
         );
 
         $availableTypes = array('text', 'select', 'multiselect', 'textarea', 'price', 'weight');
