@@ -185,7 +185,6 @@ class Ho_SimpleBundle_Adminhtml_Catalog_Upsell_ProductController extends Mage_Ad
             }
 
             /* @var $product Mage_Catalog_Model_Product */
-
             $product = Mage::getModel('catalog/product')
                 ->setStoreId(0)
                 ->setTypeId(Mage_Catalog_Model_Product_Type::TYPE_BUNDLE)
@@ -233,7 +232,7 @@ class Ho_SimpleBundle_Adminhtml_Catalog_Upsell_ProductController extends Mage_Ad
                 'option_id' => '',
                 'delete' => 0,
                 'product_id' => $parentProduct->getId(),
-                'selection_price_value' => '',
+                'selection_price_value' => $parentProduct->getPrice(),
                 'selection_price_type' => '0',
                 'selection_qty' => 1,
                 'selection_can_change_qty' => '0',
@@ -265,18 +264,27 @@ class Ho_SimpleBundle_Adminhtml_Catalog_Upsell_ProductController extends Mage_Ad
 
             $prices = array();
             $name = array();
+            $sku = array();
             foreach ($bundleOptionsData as $productId => $bundleOption) {
                 /** @var Mage_Catalog_Model_Product $childProduct */
                 $childProduct = $productCollection->getItemById($productId);
                 $prices[] = (float) $childProduct->getFinalPrice($bundleOption['selection_qty']) * $bundleOption['selection_qty'];
-                $name[] = sprintf('%s × %s', $bundleOption['selection_qty'], $childProduct->getName());
+
+                $bundleOptionsData[$productId]['selection_price_value'] = $childProduct->getFinalPrice($bundleOption['selection_qty']);
+                $name[] = $bundleOption['selection_qty'] > 1
+                    ? sprintf('%s × %s', $bundleOption['selection_qty'], $childProduct->getName())
+                    : $childProduct->getName();
+
+                $sku[] = $bundleOption['selection_qty'] > 1
+                    ? sprintf('%sx%s', $bundleOption['selection_qty'], $childProduct->getSku())
+                    : $childProduct->getSku();
             }
 
             if ($product->getNameAutogenerate()) {
                 $product->setName(implode(' + ', $name));
             }
             if ($product->getSkuAutogenerate()) {
-                $product->setSku(implode('+', $productCollection->getColumnValues('sku')));
+                $product->setSku(implode('+', $sku));
             } else {
                 $productInfo = $this->getRequest()->getParam('product');
                 if (isset($productInfo['bundle_product_sku_type']) && $productInfo['bundle_product_sku_type']) {
@@ -290,8 +298,8 @@ class Ho_SimpleBundle_Adminhtml_Catalog_Upsell_ProductController extends Mage_Ad
             }
 
 
-            $product->setPriceType(Mage_Bundle_Model_Product_Price::PRICE_TYPE_FIXED);
-            $product->setPrice(array_sum($prices));
+            $product->setPriceType(Mage_Bundle_Model_Product_Price::PRICE_TYPE_DYNAMIC);
+            $product->unsPrice();
 
             $product->validate();
             Mage::register('product', $product);

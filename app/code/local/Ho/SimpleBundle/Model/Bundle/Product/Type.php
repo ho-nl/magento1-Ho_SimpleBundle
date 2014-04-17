@@ -20,9 +20,6 @@ class Ho_SimpleBundle_Model_Bundle_Product_Type extends Mage_Bundle_Model_Produc
             return $this;
         }
 
-        $product->setTypeHasOptions(false);
-        $product->setTypeHasRequiredOptions(false);
-        $product->canAffectOptions(true);
 
         $selections = $product->getBundleSelectionsData();
         $options = $product->getBundleOptionsData();
@@ -30,16 +27,20 @@ class Ho_SimpleBundle_Model_Bundle_Product_Type extends Mage_Bundle_Model_Produc
             return $this;
         }
 
+        $isSimpleBundle = true;
         foreach ($options as $option) {
             if (empty($option['delete']) || 1 != (int)$option['delete']) {
-                $product->setTypeHasOptions(true);
-                if (1 == (int)$option['required']
-                        // this makes a normal add to cart button, doesn't get redirected to the product page.
-                        && (isset($option['type']) && $option['type'] == self::OPTION_TYPE_FIXED) === FALSE) {
-                    $product->setTypeHasRequiredOptions(true);
-                    break;
+                if ((isset($option['type']) && $option['type'] == self::OPTION_TYPE_FIXED) === false) {
+                    $isSimpleBundle = false;
                 }
             }
+        }
+
+        if ($isSimpleBundle) {
+            $product->setTypeHasOptions(false);
+            $product->setTypeHasRequiredOptions(false);
+            $product->canAffectOptions(true);
+            $product->setVisibility(1); //@todo make bundle product page.
         }
 
         return $this;
