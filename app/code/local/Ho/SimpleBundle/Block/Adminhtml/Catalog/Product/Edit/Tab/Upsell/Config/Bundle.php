@@ -41,6 +41,14 @@ class Ho_SimpleBundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Upsell_Config_Bun
      */
     protected $_product = null;
 
+    protected function _toHtml() {
+        $typeId = $this->_getProduct()->getTypeId();
+        if (in_array($typeId, Mage::helper('bundle')->getAllowedSelectionTypes())) {
+            return parent::_toHtml();
+        }
+        return '';
+    }
+
     protected function _prepareForm()
     {
         $form = new Varien_Data_Form();

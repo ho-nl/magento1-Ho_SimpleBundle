@@ -79,30 +79,6 @@ class Ho_SimpleBundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Upsell_Config ext
             (Mage::helper('catalog')->isPriceGlobal() && $this->isReadonly());
     }
 
-//    /**
-//     * Prepare Layout data
-//     *
-//     * @return Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config
-//     */
-//    protected function _prepareLayout()
-//    {
-////        $this->setChild('grid',
-////            $this->getLayout()->createBlock('ho_simplebundle/adminhtml_catalog_product_edit_tab_upsell_config_grid',
-////                'catalog.product.edit.tab.upsell.config.grid')
-////        );
-//
-////        $this->setChild('create_empty',
-////            $this->getLayout()->createBlock('adminhtml/widget_button')
-////                ->setData(array(
-////                    'label' => Mage::helper('catalog')->__('Create Empty'),
-////                    'class' => 'add',
-////                    'onclick' => 'superProduct.createEmptyProduct()'
-////                ))
-////        );
-//
-//        return parent::_prepareLayout();
-//    }
-
     /**
      * Retrieve currently edited product object
      *
@@ -231,46 +207,6 @@ class Ho_SimpleBundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Upsell_Config ext
     public function escapeJs($string)
     {
         return addcslashes($string, "'\r\n\\");
-    }
-
-    /**
-     * Retrieve Tab label
-     *
-     * @return string
-     */
-    public function getTabLabel()
-    {
-        return Mage::helper('catalog')->__('Associated Products');
-    }
-
-    /**
-     * Retrieve Tab title
-     *
-     * @return string
-     */
-    public function getTabTitle()
-    {
-        return Mage::helper('catalog')->__('Associated Products');
-    }
-
-    /**
-     * Can show tab flag
-     *
-     * @return bool
-     */
-    public function canShowTab()
-    {
-        return true;
-    }
-
-    /**
-     * Check is a hidden tab
-     *
-     * @return bool
-     */
-    public function isHidden()
-    {
-        return false;
     }
 
     /**
