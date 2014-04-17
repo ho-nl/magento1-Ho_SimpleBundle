@@ -47,12 +47,12 @@ class Ho_SimpleBundle_Block_Catalog_Product_List_Upsell extends Mage_Catalog_Blo
 
         if ($this->getData('show_bundles')) {
             $this->_itemCollection->addAttributeToFilter('type_id', array('eq' => 'bundle'));
-            /* Updating collection with desired items */
-            Mage::dispatchEvent('catalog_product_upsell', array(
-                'product'       => $product,
-                'collection'    => $this->_itemCollection,
-                'limit'         => $this->getItemLimit()
-            ));
+//            /* Updating collection with desired items */
+//            Mage::dispatchEvent('catalog_product_upsell', array(
+//                'product'       => $product,
+//                'collection'    => $this->_itemCollection,
+//                'limit'         => $this->getItemLimit()
+//            ));
         } else {
             $this->_itemCollection->addAttributeToFilter('type_id', array('neq' => 'bundle'));
         }
