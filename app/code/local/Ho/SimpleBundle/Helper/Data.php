@@ -9,8 +9,19 @@ class Ho_SimpleBundle_Helper_Data extends Mage_Core_Helper_Abstract
      * @todo
      */
     public function isBundleProductSimple(Mage_Catalog_Model_Product $product) {
+        if (! $product->hasData('is_bundle_simple')) {
+            /** @var Ho_SimpleBundle_Model_Bundle_Product_Type $typeInstance */
+            $typeInstance = $product->getTypeInstance(true);
+            $optionsCollection = $typeInstance->getOptionsCollection($product);
+            $optionsCollection->addFieldToFilter('type', array('neq' => 'fixed'));
+            $select = $optionsCollection->getSelect();
+            $select->reset('columns');
+            $select->columns('type');
+            $result = $optionsCollection->getConnection()->fetchCol($select);
+            $product->setData('is_bundle_simple', !count($result));
+        }
 
-        return true;
+        return $product->getData('is_bundle_simple');
     }
 
 
