@@ -1,4 +1,9 @@
-Ho_SimpleBundle
-===============
+H&O Simple Bundle
+=================
 
-Real simple bundles. Without Titles.
+Create bundles that don't have any options to choose from and are simple to create.
+
+![Admin Panel](readme/admin.png)
+
+![Frontend](readme/frontend.png)
+
