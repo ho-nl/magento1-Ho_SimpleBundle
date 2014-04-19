@@ -38,15 +38,17 @@
 .form-list td.value .grid select{
     width: inherit;
 }
+#<?php echo $this->getHtmlId() ?>_simplebundle_form .label {
+    width: 100px;
+}
+#<?php echo $this->getHtmlId() ?>_simplebundle_form .label label {
+    width: inherit;
+}
+#<?php echo $this->getHtmlId() ?>_simplebundle_form .value {
+    width: inherit;
+}
 </style>
 <script type="text/javascript">
-
 simpleBundle = new Product.SimpleBundle('<?php echo $this->getHtmlId() ?>_',<?php echo $this->getGridJsObject() ?>);
 simpleBundle.createQuickUrl = '<?php echo $this->getQuickCreationUrl() ?>';
-//console.log(simpleBundle, 'yo');
-<!--Validation.add(-->
-<!--    'validate-configurable',-->
-<!--    '--><?php //echo $this->escapeJs(Mage::helper('catalog')->__('Product with this combination of attributes already associated to configurable.')) ?><!--',-->
-<!--    superProduct.checkCreationUniqueAttributes.bind(superProduct)-->
-<!--)-->
 </script>

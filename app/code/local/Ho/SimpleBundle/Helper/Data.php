@@ -4,6 +4,36 @@ class Ho_SimpleBundle_Helper_Data extends Mage_Core_Helper_Abstract
 {
 
     /**
+     * Get product html block
+     *
+     * @param string                     $mode
+     * @param Mage_Catalog_Model_Product $product
+     * @param array                      $data
+     *
+     * @return string
+     */
+    public function getProductHtml($mode, Mage_Catalog_Model_Product $product, $data = array())
+    {
+        if ($this->isModuleEnabled('Ho_Bootstrap')) {
+            $renderer = Mage::helper('ho_bootstrap/list')->getProductRenderer($mode, $product->getTypeId(),$product->getAttributeSetId());
+        } else {
+            $renderer = array(
+                'block' => 'ho_simplebundle/catalog_product_list_type_simplebundle',
+                'template' => 'ho/simplebundle/catalog/product/list/type/default/simplebundle.phtml'
+            );
+        }
+
+        /** @var $block Ho_Bootstrap_Block_Catalog_Product_List_Type_Default */
+        $block = Mage::app()->getLayout()->createBlock($renderer['block'])
+            ->setTemplate($renderer['template'])
+            ->setProduct($product)
+            ->addData($data);
+
+        return $block->toHtml();
+    }
+
+
+    /**
      * @param Mage_Catalog_Model_Product $product
      * @return bool
      * @todo

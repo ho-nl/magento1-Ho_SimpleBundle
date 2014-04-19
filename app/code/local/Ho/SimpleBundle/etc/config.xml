@@ -72,7 +72,7 @@
                     <simplebundle>
                         <mode>simplebundle</mode>
                         <type_id>default</type_id>
-                        <block>ho_bootstrap/catalog_product_list_type_default</block>
+                        <block>ho_simplebundle/catalog_product_list_type_simplebundle</block>
                         <template>ho/simplebundle/catalog/product/list/type/default/simplebundle.phtml</template>
                     </simplebundle>
                 </renderers>

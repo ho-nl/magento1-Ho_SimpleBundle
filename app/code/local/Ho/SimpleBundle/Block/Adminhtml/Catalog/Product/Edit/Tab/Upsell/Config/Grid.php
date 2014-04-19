@@ -179,7 +179,6 @@ class Ho_SimpleBundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Upsell_Config_Gri
             'index'     => 'name'
         ));
 
-
         $sets = Mage::getModel('eav/entity_attribute_set')->getCollection()
             ->setEntityTypeFilter($this->_getProduct()->getResource()->getTypeId())
             ->load()
@@ -187,7 +186,7 @@ class Ho_SimpleBundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Upsell_Config_Gri
 
         $this->addColumn('set_name', array(
             'header'=> Mage::helper('catalog')->__('Attrib. Set Name'),
-            'width' => '130px',
+            'width' => '120px',
             'index' => 'attribute_set_id',
             'type'  => 'options',
             'options' => $sets,
@@ -210,7 +209,8 @@ class Ho_SimpleBundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Upsell_Config_Gri
             'header'    => Mage::helper('catalog')->__('Inventory'),
             'renderer'  => 'adminhtml/catalog_product_edit_tab_super_config_grid_renderer_inventory',
             'filter'    => 'adminhtml/catalog_product_edit_tab_super_config_grid_filter_inventory',
-            'index'     => 'is_saleable'
+            'index'     => 'is_saleable',
+            'width'     => '1px'
         ));
 
         if (!$this->isReadonly()) {

@@ -40,7 +40,7 @@ $_helper = $this->helper('catalog/output');
     <div class="panel-body products-list">
         <?php foreach ($_productCollection as $_product): ?>
         <div class="item">
-            <?php echo Mage::helper('ho_bootstrap/list')->getProductHtml('simplebundle', $_product, array('limit_characters' => $this->getLimitCharacters())); ?>
+            <?php echo Mage::helper('ho_simplebundle')->getProductHtml('simplebundle', $_product, array('limit_characters' => $this->getLimitCharacters())); ?>
         </div>
         <?php endforeach; ?>
     </div>
