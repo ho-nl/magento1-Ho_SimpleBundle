@@ -1,26 +1,24 @@
 <?php
-/*
- * H&O Simple Bundles
+/**
+ * Ho_SimpleBundle
  *
- * This source file is subject to the H&O Commercial License that
- * is bundled with this package in the file LICENSE_HO.txt
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the H&O Commercial License
+ * that is bundled with this package in the file LICENSE_HO.txt.
  * It is also available through the world-wide-web at this URL:
- * http://www.h-o.nl/shop/customer-service/licensing-information
+ * http://opensource.org/licenses/afl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
- * to info@h-o.nl so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade this package a to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magentocommerce.com for more information.
+ * to info@h-o.com so we can send you a copy immediately.
  *
  * @category    Ho
  * @package     Ho_SimpleBundle
- * @copyright   Copyright (c) H&O (www.h-o.nl)
- * @license     http://www.h-o.nl/license H&O Commercial License
+ * @copyright   Copyright © 2014 H&O (http://www.h-o.nl/)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @author      Paul Hachmang – H&O <info@h-o.nl>
  */
+
 /**
  * Bundle option fixed type renderer
  */
