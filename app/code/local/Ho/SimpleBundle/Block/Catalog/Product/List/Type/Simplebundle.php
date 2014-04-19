@@ -1,5 +1,4 @@
-<?xml version="1.0"?>
-<!--
+<?php
 /**
  * Ho_SimpleBundle
  *
@@ -19,16 +18,13 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  * @author      Paul Hachmang – H&O <info@h-o.nl>
  */
--->
-<config>
-    <modules>
-        <Ho_SimpleBundle>
-            <active>true</active>
-            <codePool>local</codePool>
-            <depends>
-                <Mage_Bundle />
-                <Mage_Catalog />
-            </depends>
-        </Ho_SimpleBundle>
-    </modules>
-</config>
+/**
+ * @method Ho_SimpleBundle_Block_Catalog_Product_List_Type_Simplebundle setProduct(Mage_Catalog_Model_Product $product)
+ */
+if (Mage::helper('core')->isModuleEnabled('Ho_Bootstrap')) {
+    class Ho_SimpleBundle_Block_Catalog_Product_List_Type_Simplebundle
+        extends Ho_Bootstrap_Block_Catalog_Product_List_Type_Default {}
+} else {
+    class Ho_SimpleBundle_Block_Catalog_Product_List_Type_Simplebundle
+        extends Mage_Catalog_Block_Product_Abstract {}
+}

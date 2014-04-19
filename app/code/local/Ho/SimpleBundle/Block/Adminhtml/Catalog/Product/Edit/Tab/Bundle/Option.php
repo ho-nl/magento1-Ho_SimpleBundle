@@ -1,37 +1,26 @@
 <?php
 /**
- * Magento
+ * Ho_SimpleBundle
  *
  * NOTICE OF LICENSE
  *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
+ * This source file is subject to the H&O Commercial License
+ * that is bundled with this package in the file LICENSE_HO.txt.
  * It is also available through the world-wide-web at this URL:
  * http://opensource.org/licenses/osl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
- * to license@magentocommerce.com so we can send you a copy immediately.
+ * to info@h-o.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magentocommerce.com for more information.
- *
- * @category    Mage
- * @package     Mage_Bundle
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @category    Ho
+ * @package     Ho_SimpleBundle
+ * @copyright   Copyright © 2014 H&O (http://www.h-o.nl/)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @author      Paul Hachmang – H&O <info@h-o.nl>
  */
 
-/**
- * Bundle option renderer
- *
- * @category    Mage
- * @package     Mage_Bundle
- * @author      Magento Core Team <core@magentocommerce.com>
- */
-class Ho_SimpleBundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option extends Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option
+class Ho_SimpleBundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option
+    extends Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option
 {
 
     /**
@@ -42,6 +31,6 @@ class Ho_SimpleBundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option ext
     public function __construct()
     {
         parent::__construct();
-        $this->setTemplate('bundle/product/edit/bundle/option-fixed.phtml');
+        $this->setTemplate('ho/simplebundle/product/edit/bundle/option/fixed.phtml');
     }
 }

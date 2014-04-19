@@ -1,0 +1,121 @@
+<?php
+/**
+ * Ho_SimpleBundle
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the H&O Commercial License
+ * that is bundled with this package in the file LICENSE_HO.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to info@h-o.com so we can send you a copy immediately.
+ *
+ * @category    Ho
+ * @package     Ho_SimpleBundle
+ * @copyright   Copyright © 2014 H&O (http://www.h-o.nl/)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @author      Paul Hachmang – H&O <info@h-o.nl>
+ */
+
+/** @var $this Ho_Bootstrap_Block_Catalog_Product_List_Type_Default */
+$_product = $this->getProduct();
+/** @var $_helper Mage_Catalog_Helper_Output */
+$_helper = $this->helper('catalog/output');
+$_bundleHelper = $this->helper('ho_simplebundle');
+
+$_optionsCollection = $_product->getTypeInstance(true)->getSelectionsCollection($_product->getTypeInstance(true)->getOptionsIds($_product), $_product);
+?>
+<div class="products-list-item row <?php echo $this->getCssClass(); ?>">
+
+    <div class="col-xs-12 col-sm-7">
+        <?php $_productNameStripped = $this->stripTags($_product->getName(), null, true); ?>
+        <?php if ($_product->isVisibleInSiteVisibility()): ?>
+        <h2 class="product-name"><a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $_productNameStripped; ?>"><?php echo $_helper->productAttribute($_product, $_product->getName() , 'name'); ?></a></h2>
+        <?php else: ?>
+        <h2 class="product-name"><?php echo $_helper->productAttribute($_product, $_product->getName() , 'name'); ?></h2>
+        <?php endif; ?>
+
+        <?php if ($_optionsCollection): ?>
+        <div class="row upsell-thumbnail">
+            <?php foreach($_optionsCollection as $_option): ?>
+            <?php for ($i = 0; $i < floor($_option->getSelectionQty()); $i++): ?>
+            <div class="col-xs-4 col-md-3">
+                <a href="<?php echo $_option->getProductUrl() ?>" class="product-image thumbnail upsell-thumbnail-item">
+                    <img src="<?php echo $this->helper('catalog/image')->init($_option, 'small_image')->keepFrame(false)->constrainOnly(true)->resize(270); ?>" class="img-responsive"/>
+                </a>
+            </div>
+            <?php endfor; ?>
+            <?php endforeach; ?>
+        </div>
+        <?php endif;?>
+    </div>
+
+    <div class="product-shop col-xs-12 col-sm-5">
+        <table class="table table-condensed table-unstyled upsell-table-totals">
+            <tbody>
+            <?php foreach($_optionsCollection as $_option): ?>
+            <?php /** @var $_option Mage_Catalog_Model_Product */ ?>
+            <tr>
+                <td><?php echo $_option->getSelectionQty() * 1; ?> &times; <a href="<?php echo $_option->getProductUrl() ?>"><?php echo $_option->getName(); ?></a></td>
+                <td>
+                    <?php echo $_bundleHelper->getFinalPriceHtml($_option); ?>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+            </tbody>
+            <tfoot>
+                <tr class="old-price">
+                    <td><?php echo $this->__('Regular Price:') ?></td>
+                    <td><?php echo $_bundleHelper->getOriginalPriceHtml($_product); ?></td>
+                </tr>
+                <tr class="price-notice">
+                    <td><?php echo $this->__('Bundle Discount:') ?></td>
+                    <td><?php echo $_bundleHelper->getDiscountPriceHtml($_product); ?></td>
+                </tr>
+                <tr>
+                    <td><?php echo $this->__('Bundle Price:') ?></td>
+                    <td><?php echo $_bundleHelper->getMaxPriceHtml($_product); ?></td>
+                </tr>
+            </tfoot>
+        </table>
+        <?php if (! $this->getHideActions()): ?>
+        <ul class="add-to-links list-unstyled pull-right">
+            <?php if($_product->isSaleable()): ?>
+            <li>
+                <a title="<?php echo $this->__('Add to Cart') ?>"
+                   class="btn btn-primary btn-cart"
+                   onclick="jQuery(this).button('loading');"
+                   data-loading-text="<?php echo "<i class='icon-plus'></i> ". $this->__('Adding…'); ?>"
+                   href="<?php echo $this->getAddToCartUrl($_product) ?>"
+                   rel="nofollow">
+                    <i class="icon-plus"></i> <?php echo $this->__('Add to Cart'); ?>
+                </a>
+            </li>
+            <?php else: ?>
+            <li>
+                <p class="availability out-of-stock label"><span><?php echo $this->__('Out of stock') ?></span></p>
+            </li>
+            <?php endif; ?>
+
+            <?php if ($this->helper('wishlist')->isAllow()) : ?>
+            <li><a href="<?php echo $this->helper('wishlist')->getAddUrl($_product) ?>"
+                   rel="nofollow" class="add-to-wishlist" title="<?=$this->__('Add to Wishlist'); ?>">
+                <i class="icon-star-empty"></i>
+                <span class="hidden-xs"><?php echo $this->__('Add to Wishlist') ?></span>
+                <span class="visible-xs"><?php echo $this->__('Wishlist') ?></span>
+            </a></li>
+            <?php endif; ?>
+            <?php if($_compareUrl=$this->getAddToCompareUrl($_product)): ?>
+            <li><a href="<?php echo $_compareUrl ?>"
+                   rel="nofollow" class="">
+                <i class="icon-sitemap"></i>
+                <span class="hidden-xs"><?php echo $this->__('Add to Compare') ?></span>
+                <span class="visible-xs"><?php echo $this->__('Compare') ?></span>
+            </a></li>
+            <?php endif; ?>
+        </ul>
+        <?php endif; ?>
+    </div>
+</div>

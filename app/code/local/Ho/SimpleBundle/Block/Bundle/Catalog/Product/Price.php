@@ -1,5 +1,4 @@
-<?xml version="1.0"?>
-<!--
+<?php
 /**
  * Ho_SimpleBundle
  *
@@ -19,16 +18,7 @@
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  * @author      Paul Hachmang – H&O <info@h-o.nl>
  */
--->
-<config>
-    <modules>
-        <Ho_SimpleBundle>
-            <active>true</active>
-            <codePool>local</codePool>
-            <depends>
-                <Mage_Bundle />
-                <Mage_Catalog />
-            </depends>
-        </Ho_SimpleBundle>
-    </modules>
-</config>
+ 
+class Ho_SimpleBundle_Block_Bundle_Catalog_Product_Price extends Mage_Bundle_Block_Catalog_Product_Price {
+
+}

@@ -1,75 +1,68 @@
 <?php
 /**
- * Magento
+ * Ho_SimpleBundle
  *
  * NOTICE OF LICENSE
  *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
+ * This source file is subject to the H&O Commercial License
+ * that is bundled with this package in the file LICENSE_HO.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * http://opensource.org/licenses/afl-3.0.php
  * If you did not receive a copy of the license and are unable to
  * obtain it through the world-wide-web, please send an email
- * to license@magentocommerce.com so we can send you a copy immediately.
+ * to info@h-o.com so we can send you a copy immediately.
  *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magentocommerce.com for more information.
- *
- * @category    Mage
- * @package     Mage_Bundle
- * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @category    Ho
+ * @package     Ho_SimpleBundle
+ * @copyright   Copyright © 2014 H&O (http://www.h-o.nl/)
  * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @author      Paul Hachmang – H&O <info@h-o.nl>
  */
 
-/**
- * Bundle Type Model
- *
- * @category    Mage
- * @package     Mage_Bundle
- * @author      Magento Core Team <core@magentocommerce.com>
- */
 class Ho_SimpleBundle_Model_Bundle_Product_Type extends Mage_Bundle_Model_Product_Type
 {
     const OPTION_TYPE_FIXED = 'fixed';
+
 
     /**
      * Makes sure that for OPTION_TYPE_FIXED the options aren't required to enter.
      *
      * @param Mage_Catalog_Model_Product $product
+     * @return \Mage_Catalog_Model_Product_Type_Abstract
      */
     public function beforeSave($product = null)
     {
         parent::beforeSave($product);
         $product = $this->getProduct($product);
 
-        if ($product->getCanSaveBundleSelections()) {
-            $product->setTypeHasOptions(false);
-            $product->setTypeHasRequiredOptions(false);
-            $product->canAffectOptions(true);
+        if (! $product->getCanSaveBundleSelections()) {
+            return $this;
+        }
 
-            $selections = $product->getBundleSelectionsData();
-            if ($selections) {
-                if (!empty($selections)) {
-                    $options = $product->getBundleOptionsData();
-                    if ($options) {
-                        foreach ($options as $option) {
-                            if (empty($option['delete']) || 1 != (int)$option['delete']) {
-                                $product->setTypeHasOptions(true);
-                                if (1 == (int)$option['required']
-                                        // this makes a normal add to cart button, doesn't get redirected to the product page.
-                                        && (isset($option['type']) && $option['type'] == self::OPTION_TYPE_FIXED) === FALSE) {
-                                    $product->setTypeHasRequiredOptions(true);
-                                    break;
-                                }
-                            }
-                        }
-                    }
+
+        $selections = $product->getBundleSelectionsData();
+        $options = $product->getBundleOptionsData();
+        if (($selections && !empty($selections) && $options) === false) {
+            return $this;
+        }
+
+        $isSimpleBundle = true;
+        foreach ($options as $option) {
+            if (empty($option['delete']) || 1 != (int)$option['delete']) {
+                if ((isset($option['type']) && $option['type'] == self::OPTION_TYPE_FIXED) === false) {
+                    $isSimpleBundle = false;
                 }
             }
         }
+
+        if ($isSimpleBundle) {
+            $product->setTypeHasOptions(false);
+            $product->setTypeHasRequiredOptions(false);
+            $product->canAffectOptions(true);
+            $product->setVisibility(1); //@todo make bundle product page.
+        }
+
+        return $this;
     }
 
 

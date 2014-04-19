@@ -19,17 +19,29 @@
  * @author      Paul Hachmang – H&O <info@h-o.nl>
  */
 
-class Ho_SimpleBundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Selection
-    extends Mage_Bundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Selection
+class Ho_SimpleBundle_Block_Adminhtml_Catalog_Product_View_Type_Bundle_Type_Fixed
+    extends Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option
 {
     /**
-     * Bundle option renderer class constructor
+     * Set template
      *
-     * Sets block template and necessary data
+     * @return void
      */
-    public function __construct()
+    protected function _construct()
     {
-        parent::__construct();
-        $this->setTemplate('ho/simplebundle/product/edit/bundle/option/selection/fixed.phtml');
+        parent::_construct();
+        $this->setTemplate('ho/simplebundle/product/composite/fieldset/options/type/fixed.phtml');
+    }
+
+    /**
+     * @param  string $elementId
+     * @param  string $containerId
+     * @return string
+     */
+    public function setValidationContainer($elementId, $containerId)
+    {
+        return '<script type="text/javascript">
+            $(\'' . $elementId . '\').advaiceContainer = \'' . $containerId . '\';
+            </script>';
     }
 }

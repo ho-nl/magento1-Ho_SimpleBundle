@@ -1,0 +1,50 @@
+<?php
+/**
+ * Ho_SimpleBundle
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the H&O Commercial License
+ * that is bundled with this package in the file LICENSE_HO.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to info@h-o.com so we can send you a copy immediately.
+ *
+ * @category    Ho
+ * @package     Ho_SimpleBundle
+ * @copyright   Copyright © 2014 H&O (http://www.h-o.nl/)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @author      Paul Hachmang – H&O <info@h-o.nl>
+ */
+
+?>
+<?php $_product = $this->getProduct() ?>
+
+<?php if ($_product->isSaleable()): ?>
+    <script type="text/javascript">
+        //<![CDATA[
+        var bundle = new Product.Bundle(<?php echo $this->getJsonConfig() ?>);
+        var taxCalcMethod = "<?php echo Mage::helper('tax')->getConfig()->getAlgorithm($_product->getStore()) ?>";
+        var CACL_UNIT_BASE = "<?php echo Mage_Tax_Model_Calculation::CALC_UNIT_BASE ?>";
+        var CACL_ROW_BASE = "<?php echo Mage_Tax_Model_Calculation::CALC_ROW_BASE ?>";
+        var CACL_TOTAL_BASE = "<?php echo Mage_Tax_Model_Calculation::CALC_TOTAL_BASE ?>";
+        //]]>
+    </script>
+<?php endif; ?>
+<?php if ($this->displayProductStockStatus()): ?>
+    <?php if ($_product->isAvailable()): ?>
+        <p class="availability in-stock"><?php echo $this->helper('catalog')->__('Availability:') ?>
+            <span><?php echo $this->helper('catalog')->__('In stock') ?></span></p>
+    <?php else: ?>
+        <p class="availability out-of-stock"><?php echo $this->helper('catalog')->__('Availability:') ?>
+            <span><?php echo $this->helper('catalog')->__('Out of stock') ?></span></p>
+    <?php endif; ?>
+<?php endif; ?>
+<div class="price-box-bundle">
+    <?php echo $this->getPriceHtml($_product) ?>
+</div>
+<?php if (! Mage::helper('ho_simplebundle')->isBundleProductSimple($_product)): ?>
+<?php echo $this->getChildHtml('bundle_prices') ?>
+<?php endif; ?>

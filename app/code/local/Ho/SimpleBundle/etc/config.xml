@@ -1,5 +1,26 @@
 <?xml version="1.0"?>
-<config>	
+<!--
+/**
+ * Ho_SimpleBundle
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the H&O Commercial License
+ * that is bundled with this package in the file LICENSE_HO.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to info@h-o.com so we can send you a copy immediately.
+ *
+ * @category    Ho
+ * @package     Ho_SimpleBundle
+ * @copyright   Copyright © 2014 H&O (http://www.h-o.nl/)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @author      Paul Hachmang – H&O <info@h-o.nl>
+ */
+-->
+<config>
 	<modules>
 	<Ho_SimpleBundle>
 		<version>0.1.0</version>
@@ -8,9 +29,9 @@
 
 	<global>
 		<blocks>
-			<simplebundle>
+			<ho_simplebundle>
 				<class>Ho_SimpleBundle_Block</class>
-			</simplebundle>
+			</ho_simplebundle>
 
             <bundle>
                 <rewrite>
@@ -18,16 +39,26 @@
                     <adminhtml_catalog_product_edit_tab_bundle_option_selection>Ho_SimpleBundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Bundle_Option_Selection</adminhtml_catalog_product_edit_tab_bundle_option_selection>
                 </rewrite>
             </bundle>
-		</blocks>
+            <catalog>
+                <rewrite>
+                    <product_list_upsell>Ho_SimpleBundle_Block_Catalog_Product_List_Upsell</product_list_upsell>
+                </rewrite>
+            </catalog>
+        </blocks>
         <helpers>
-            <simplebundle>
+            <ho_simplebundle>
                 <class>Ho_SimpleBundle_Helper</class>
-            </simplebundle>
+            </ho_simplebundle>
+            <bundle>
+                <rewrite>
+                    <catalog_product_configuration>Ho_SimpleBundle_Helper_Bundle_Catalog_Product_Configuration</catalog_product_configuration>
+                </rewrite>
+            </bundle>
         </helpers>
         <models>
-            <simplebundle>
+            <ho_simplebundle>
                 <class>Ho_SimpleBundle_Model</class>
-            </simplebundle>
+            </ho_simplebundle>
             <bundle>
                 <rewrite>
                     <product_type>Ho_SimpleBundle_Model_Bundle_Product_Type</product_type>
@@ -39,7 +70,7 @@
                 <options>
                     <bundle>
                         <types>
-                            <fixed translate="label" module="bundle">
+                            <fixed translate="label" module="ho_simplebundle">
                                 <label>Simple</label>
                             </fixed>
                         </types>
@@ -51,19 +82,42 @@
     <frontend>
    		<layout>
    			<updates>
-   				<simplebundle module="simplebundle">
+   				<ho_simplebundle module="ho_simplebundle">
    					<file>ho/simplebundle.xml</file>
-   				</simplebundle>
+   				</ho_simplebundle>
    			</updates>
    		</layout>
+        <ho_bootstrap>
+            <product_list>
+                <renderers>
+                    <simplebundle>
+                        <mode>simplebundle</mode>
+                        <type_id>default</type_id>
+                        <block>ho_simplebundle/catalog_product_list_type_simplebundle</block>
+                        <template>ho/simplebundle/catalog/product/list/type/default/simplebundle.phtml</template>
+                    </simplebundle>
+                </renderers>
+            </product_list>
+        </ho_bootstrap>
    	</frontend>
     <adminhtml>
         <layout>
             <updates>
-                <simplebundle module="simplebundle">
-                    <file>simplebundle.xml</file>
-                </simplebundle>
+                <ho_simplebundle module="ho_simplebundle">
+                    <file>ho/simplebundle.xml</file>
+                </ho_simplebundle>
             </updates>
         </layout>
     </adminhtml>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <Ho_SimpleBundle before="Mage_Adminhtml">Ho_SimpleBundle_Adminhtml</Ho_SimpleBundle>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
 </config>

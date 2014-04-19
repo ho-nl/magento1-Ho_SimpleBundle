@@ -1,0 +1,49 @@
+<?php
+/**
+ * Ho_SimpleBundle
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the H&O Commercial License
+ * that is bundled with this package in the file LICENSE_HO.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to info@h-o.com so we can send you a copy immediately.
+ *
+ * @category    Ho
+ * @package     Ho_SimpleBundle
+ * @copyright   Copyright © 2014 H&O (http://www.h-o.nl/)
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @author      Paul Hachmang – H&O <info@h-o.nl>
+ */
+?>
+<?php /** @var $this Ho_SimpleBundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Upsell_Config */ ?>
+<?php if (!$this->isReadonly()):?>
+<div id="<?php echo $this->getHtmlId() ?>_simplebundle_form" class="ignore-validate configurable-simple-product">
+<?php echo $this->getChildHtml('simplebundle'); ?>
+</div>
+<?php endif;?>
+
+<?php echo $this->getChildHtml('catalog.product.edit.tab.upsell'); ?>
+<?php echo $this->getChildHtml('upsell_grid_serializer'); ?>
+
+<style>
+.form-list td.value .grid select{
+    width: inherit;
+}
+#<?php echo $this->getHtmlId() ?>_simplebundle_form .label {
+    width: 100px;
+}
+#<?php echo $this->getHtmlId() ?>_simplebundle_form .label label {
+    width: inherit;
+}
+#<?php echo $this->getHtmlId() ?>_simplebundle_form .value {
+    width: inherit;
+}
+</style>
+<script type="text/javascript">
+simpleBundle = new Product.SimpleBundle('<?php echo $this->getHtmlId() ?>_',<?php echo $this->getGridJsObject() ?>);
+simpleBundle.createQuickUrl = '<?php echo $this->getQuickCreationUrl() ?>';
+</script>
