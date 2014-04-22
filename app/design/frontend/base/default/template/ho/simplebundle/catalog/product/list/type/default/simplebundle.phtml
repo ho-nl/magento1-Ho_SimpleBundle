@@ -41,7 +41,7 @@ $_optionsCollection = $_product->getTypeInstance(true)->getSelectionsCollection(
         <div class="row upsell-thumbnail">
             <?php foreach($_optionsCollection as $_option): ?>
             <?php for ($i = 0; $i < floor($_option->getSelectionQty()); $i++): ?>
-            <div class="col-xs-4 col-md-3">
+            <div class="col-xs-3">
                 <a href="<?php echo $_option->getProductUrl() ?>" class="product-image thumbnail upsell-thumbnail-item">
                     <img src="<?php echo $this->helper('catalog/image')->init($_option, 'small_image')->keepFrame(false)->constrainOnly(true)->resize(270); ?>" class="img-responsive"/>
                 </a>
