@@ -1,17 +1,8 @@
-#
 # Ho_SimpleBundle
-#
-app/code/local/Ho/*                                                                             app/code/local/Ho/
-app/etc/modules/*                                                                               app/etc/modules/
-
-app/design/adminhtml/default/default/layout/ho/*                                                app/design/adminhtml/default/default/layout/ho/
-app/design/adminhtml/default/default/template/bundle/product/composite/fieldset/options/type/*  app/design/adminhtml/default/default/template/bundle/product/composite/fieldset/options/type/
-app/design/adminhtml/default/default/template/bundle/product/edit/bundle/option/*               app/design/adminhtml/default/default/template/bundle/product/edit/bundle/option/
-app/design/adminhtml/default/default/template/bundle/product/edit/bundle/option-fixed.phtml     app/design/adminhtml/default/default/template/bundle/product/edit/bundle/option-fixed.phtml
-app/design/adminhtml/default/default/template/ho/simplebundle/*                                 app/design/adminhtml/default/default/template/ho/simplebundle/
-
-app/design/frontend/base/default/template/catalog/product/list/upsell-bundles.phtml             app/design/frontend/base/default/template/catalog/product/list/upsell-bundles.phtml
-app/design/frontend/base/default/template/ho/*                                                  app/design/frontend/base/default/template/ho/
-app/design/frontend/base/default/layout/ho/*                                                    app/design/frontend/base/default/layout/ho/
-
-js/ho/*                                                                                         js/ho/
+app/code/local/Ho/SimpleBundle/                                     app/code/local/Ho/SimpleBundle/
+app/etc/modules/*                                                          app/etc/modules/
+app/design/frontend/base/default/layout/ho/*         app/design/frontend/base/default/layout/ho/
+app/design/frontend/base/default/template/ho/*       app/design/frontend/base/default/template/ho/
+app/design/adminhtml/default/default/layout/ho/*     app/design/adminhtml/default/default/layout/ho/
+app/design/adminhtml/default/default/template/ho/*   app/design/adminhtml/default/default/template/ho/
+js/ho/*                        js/ho/
