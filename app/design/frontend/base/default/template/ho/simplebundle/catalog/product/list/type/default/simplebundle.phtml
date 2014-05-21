@@ -25,7 +25,9 @@ $_product = $this->getProduct();
 $_helper = $this->helper('catalog/output');
 $_bundleHelper = $this->helper('ho_simplebundle');
 
+/** @var Mage_Bundle_Model_Resource_Selection_Collection $_optionsCollection */
 $_optionsCollection = $_product->getTypeInstance(true)->getSelectionsCollection($_product->getTypeInstance(true)->getOptionsIds($_product), $_product);
+$_optionsCollection->addAttributeToSelect('visibility');
 ?>
 <div class="products-list-item row <?php echo $this->getCssClass(); ?>">
 
@@ -42,9 +44,15 @@ $_optionsCollection = $_product->getTypeInstance(true)->getSelectionsCollection(
             <?php foreach($_optionsCollection as $_option): ?>
             <?php for ($i = 0; $i < floor($_option->getSelectionQty()); $i++): ?>
             <div class="col-xs-3">
+                <?php if ($_option->isVisibleInSiteVisibility()): ?>
                 <a href="<?php echo $_option->getProductUrl() ?>" class="product-image thumbnail upsell-thumbnail-item">
                     <img src="<?php echo $this->helper('catalog/image')->init($_option, 'small_image')->keepFrame(false)->constrainOnly(true)->resize(270); ?>" class="img-responsive"/>
                 </a>
+                <?php else: ?>
+                <div class="product-image thumbnail upsell-thumbnail-item">
+                    <img src="<?php echo $this->helper('catalog/image')->init($_option, 'small_image')->keepFrame(false)->constrainOnly(true)->resize(270); ?>" class="img-responsive"/>
+                </div>
+                <?php endif; ?>
             </div>
             <?php endfor; ?>
             <?php endforeach; ?>
@@ -58,7 +66,14 @@ $_optionsCollection = $_product->getTypeInstance(true)->getSelectionsCollection(
             <?php foreach($_optionsCollection as $_option): ?>
             <?php /** @var $_option Mage_Catalog_Model_Product */ ?>
             <tr>
-                <td><?php echo $_option->getSelectionQty() * 1; ?> &times; <a href="<?php echo $_option->getProductUrl() ?>"><?php echo $_option->getName(); ?></a></td>
+                <td>
+                    <?php echo $_option->getSelectionQty() * 1; ?> &times;
+                    <?php if ($_option->isVisibleInSiteVisibility()): ?>
+                    <a href="<?php echo $_option->getProductUrl() ?>"><?php echo $_option->getName(); ?></a>
+                    <?php else: ?>
+                    <?php echo $_option->getName(); ?>
+                    <?php endif; ?>
+                </td>
                 <td>
                     <?php echo $_bundleHelper->getFinalPriceHtml($_option); ?>
                 </td>
