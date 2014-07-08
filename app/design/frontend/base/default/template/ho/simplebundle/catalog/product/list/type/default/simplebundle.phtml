@@ -41,19 +41,29 @@ $_optionsCollection->addAttributeToSelect('visibility');
 
         <?php if ($_optionsCollection): ?>
         <div class="row upsell-thumbnail">
+            <?php $_optionPreviousSelectionQty = null; ?>
             <?php foreach($_optionsCollection as $_option): ?>
             <?php for ($i = 0; $i < floor($_option->getSelectionQty()); $i++): ?>
+            <?php if($_optionPreviousSelectionQty < 2): ?>
             <div class="col-xs-3">
                 <?php if ($_option->isVisibleInSiteVisibility()): ?>
                 <a href="<?php echo $_option->getProductUrl() ?>" class="product-image thumbnail upsell-thumbnail-item">
                     <img src="<?php echo $this->helper('catalog/image')->init($_option, 'small_image')->keepFrame(false)->constrainOnly(true)->resize(270); ?>" class="img-responsive"/>
+                    <div class="caption">
+                        <p><?php echo floor($_option->getSelectionQty())?>x</p>
+                    </div>
                 </a>
                 <?php else: ?>
                 <div class="product-image thumbnail upsell-thumbnail-item">
                     <img src="<?php echo $this->helper('catalog/image')->init($_option, 'small_image')->keepFrame(false)->constrainOnly(true)->resize(270); ?>" class="img-responsive"/>
+                    <div class="caption">
+                        <p><?php echo floor($_option->getSelectionQty())?>x</p>
+                    </div>
                 </div>
                 <?php endif; ?>
             </div>
+            <?php endif; ?>
+            <?php $_optionPreviousSelectionQty = $_option->getSelectionQty(); ?>
             <?php endfor; ?>
             <?php endforeach; ?>
         </div>
