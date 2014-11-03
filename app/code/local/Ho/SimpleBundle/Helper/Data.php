@@ -119,6 +119,15 @@ class Ho_SimpleBundle_Helper_Data extends Mage_Core_Helper_Abstract
         return $this->_renderPrice($product, $price);
     }
 
+    public function getTotalDiscountPriceHtml(Mage_Catalog_Model_Product $product, $prices, $discountPrice) {
+        $orginalPrice = 0;
+        foreach($prices as $price) {
+            $orginalPrice += $price;
+        }
+        $discount = $orginalPrice - $discountPrice;
+        return $this->_renderPrice($product, $discount);
+    }
+
     protected function _renderPrice(Mage_Catalog_Model_Product $product, $price) {
         $store = $product->getStore();
         $convertedPrice = $store->roundPrice($store->convertPrice($price));
