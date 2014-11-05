@@ -60,6 +60,7 @@ class Ho_SimpleBundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Upsell_Config_Bun
             ->setAttributeSetId($this->_getProduct()->getAttributeSetId())
             ->getAttributes();
 
+        $fields = array();
         /* Standart attributes */
         foreach ($attributes as $attribute) {
             if (($attribute->getIsRequired()
@@ -76,7 +77,7 @@ class Ho_SimpleBundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Upsell_Config_Bun
                 }
                 $attributeCode = $attribute->getAttributeCode();
                 $attribute->setAttributeCode('bundle_product_' . $attributeCode);
-                $element = $fieldset->addField(
+                $fields[$attributeCode] = $fieldset->addField(
                     'bundle_product_' . $attributeCode,
                      $inputType,
                      array(
@@ -87,12 +88,11 @@ class Ho_SimpleBundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Upsell_Config_Bun
                 )->setEntityAttribute($attribute);
 
                 if (in_array($attributeCode, $attributesConfig['autogenerate'])) {
-                    $element->setDisabled('true');
-                    $element->setValue($this->_getProduct()->getData($attributeCode));
-                    $element->setAfterElementHtml(
+                    $fields[$attributeCode]->setValue($this->_getProduct()->getData($attributeCode));
+                    $fields[$attributeCode]->setAfterElementHtml(
                          '<input type="checkbox" id="bundle_product_' . $attributeCode . '_autogenerate" '
                          . 'name="bundle_product[' . $attributeCode . '_autogenerate]" value="1" '
-                         . 'onclick="toggleValueElements(this, this.parentNode)" checked="checked" /> '
+                         . 'onclick="toggleValueElements(this, this.parentNode)" /> '
                          . '<label for="bundle_product_' . $attributeCode . '_autogenerate" >'
                          . Mage::helper('catalog')->__('Autogenerate')
                          . '</label>'
@@ -101,20 +101,17 @@ class Ho_SimpleBundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Upsell_Config_Bun
 
 
                 if ($inputType == 'select' || $inputType == 'multiselect') {
-                    $element->setValues($attribute->getFrontend()->getSelectOptions());
+                    $fields[$attributeCode]->setValues($attribute->getFrontend()->getSelectOptions());
                 }
             }
         }
 
-        /* Inventory Data */
-//        $fieldset->addField('bundle_product_special_price', 'price', array(
-//            'label' => Mage::helper('catalog')->__('Qty'),
-//            'name'  => 'stock_data[qty]',
-//            'class' => 'validate-number',
-//            'required' => true,
-//            'value'  => 0,
-//            'width' => 1
-//        ));
+        /** @var Varien_Data_Form_Element_Text $name */
+        $name = $fields['name'];
+        $name->setNote(Mage::helper('ho_simplebundle')->__('Warning: Autogenerate creates a very long %s', 'name'));
+
+        $sku = $fields['sku'];
+        $sku->setNote(Mage::helper('ho_simplebundle')->__('Warning: Autogenerate creates a very long %s', 'sku'));
 
         $fieldset->addField('bundle_product_inventory_is_in_stock', 'select', array(
             'label' => Mage::helper('catalog')->__('Stock Availability'),
