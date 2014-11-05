@@ -26,15 +26,6 @@ Product.SimpleBundle.prototype = {
 
         return this;
     },
-//    createPopup : function(url) {
-//        if (this.win && !this.win.closed) {
-//            this.win.close();
-//        }
-//
-//        this.win = window.open(url, '',
-//                'width=1000,height=700,resizable=1,scrollbars=1');
-//        this.win.focus();
-//    },
     initializeAdvicesForSimpleForm : function() {
         if ($(this.idPrefix + 'simplebundle_form').advicesInited) {
             return;
@@ -80,7 +71,6 @@ Product.SimpleBundle.prototype = {
         });
     },
     quickCreateNewProductComplete : function(transport) {
-
         var result = transport.responseText.evalJSON();
 
         if (result.error) {
@@ -113,8 +103,17 @@ Product.SimpleBundle.prototype = {
             $('messages').update(result.messages);
         }
 
-        this.grid.reloadParams['products_upsell[]'].push(result.product_id)
+        this.grid.reloadParams['products_upsell[]'].push(result.product_id);
         this.grid.reload();
+
+        var input = $$('[name="links[upsell]"]').first();
+        if (input.value) {
+            input.value += result.product_id+'=cG9zaXRpb249';
+        } else {
+            input.value = result.product_id+'=cG9zaXRpb249';
+        }
+            console.log(input.value);
+
     },
     showNoticeMessage : function() {
         $('assign_product_warrning').show();
