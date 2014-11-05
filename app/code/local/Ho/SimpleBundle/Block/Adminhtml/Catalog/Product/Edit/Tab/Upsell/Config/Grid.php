@@ -19,7 +19,8 @@
  * @author      Paul Hachmang – H&O <info@h-o.nl>
  */
 
-class Ho_SimpleBundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Upsell_Config_Grid extends Mage_Adminhtml_Block_Widget_Grid
+class Ho_SimpleBundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Upsell_Config_Grid
+    extends Mage_Adminhtml_Block_Widget_Grid
 {
     /**
      * Config attribute codes
@@ -62,8 +63,8 @@ class Ho_SimpleBundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Upsell_Config_Gri
 
             $existsProducts = $productIds; // Only for "Yes" Filter we will add created products
 
-            if(count($createdProducts)>0) {
-                if(!is_array($existsProducts)) {
+            if (count($createdProducts)>0) {
+                if (!is_array($existsProducts)) {
                     $existsProducts = $createdProducts;
                 } else {
                     $existsProducts = array_merge($createdProducts);
@@ -72,14 +73,12 @@ class Ho_SimpleBundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Upsell_Config_Gri
 
             if ($column->getFilter()->getValue()) {
                 $this->getCollection()->addFieldToFilter('entity_id', array('in'=>$existsProducts));
-            }
-            else {
-                if($productIds) {
+            } else {
+                if ($productIds) {
                     $this->getCollection()->addFieldToFilter('entity_id', array('nin'=>$productIds));
                 }
             }
-        }
-        else {
+        } else {
             parent::_addColumnFilterToCollection($column);
         }
         return $this;
@@ -110,7 +109,6 @@ class Ho_SimpleBundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Upsell_Config_Gri
             ->addAttributeToSelect('attribute_set_id')
             ->addAttributeToSelect('type_id')
             ->addAttributeToSelect('price')
-//            ->addFieldToFilter('attribute_set_id',$product->getAttributeSetId())
             ->addFieldToFilter('type_id', Mage::helper('bundle')->getAllowedSelectionTypes())
             ->addFilterByRequiredOptions()
             ->joinAttribute('name', 'catalog_product/name', 'entity_id', null, 'inner');
@@ -118,11 +116,6 @@ class Ho_SimpleBundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Upsell_Config_Gri
         if (Mage::helper('catalog')->isModuleEnabled('Mage_CatalogInventory')) {
             Mage::getModel('cataloginventory/stock_item')->addCatalogInventoryToProductCollection($collection);
         }
-
-//        foreach ($product->getTypeInstance(true)->getUsedProductAttributes($product) as $attribute) {
-//            $collection->addAttributeToSelect($attribute->getAttributeCode());
-//            $collection->addAttributeToFilter($attribute->getAttributeCode(), array('notnull'=>1));
-//        }
 
         $this->setCollection($collection);
 
@@ -154,6 +147,11 @@ class Ho_SimpleBundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Upsell_Config_Gri
         return $this->_getProduct()->getCompositeReadonly();
     }
 
+
+    /**
+     * @return $this
+     * @throws Exception
+     */
     protected function _prepareColumns()
     {
         $this->addColumn('entity_id', array(
@@ -209,7 +207,6 @@ class Ho_SimpleBundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Upsell_Config_Gri
                 'values'    => $this->_getSelectedProducts(),
                 'align'     => 'center',
                 'index'     => 'entity_id',
-//                'renderer'  => 'adminhtml/catalog_product_edit_tab_super_config_grid_renderer_checkbox',
             ));
         }
         $this->addColumn('position', array(
@@ -249,7 +246,8 @@ class Ho_SimpleBundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Upsell_Config_Gri
         );
     }
 
-    public function getOptions($attribute) {
+    public function getOptions($attribute)
+    {
         $result = array();
         foreach ($attribute->getProductAttribute()->getSource()->getAllOptions() as $option) {
             if($option['value']!='') {
@@ -263,64 +261,5 @@ class Ho_SimpleBundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Upsell_Config_Gri
     public function getGridUrl()
     {
         return $this->getUrl('*/catalog_upsell_product/bundle', array('_current'=>true));
-    }
-
-    /**
-     * Retrieve item row configurable attribute data
-     *
-     * @param Varien_Object $item
-     * @return array
-     */
-    protected function _retrieveRowData(Varien_Object $item)
-    {
-        $attributeValues = array();
-//        foreach ($this->_getConfigAttributeCodes() as $attributeCode) {
-//            $data = $item->getData($attributeCode);
-//            if ($data) {
-//                $attributeValues[$attributeCode] = $data;
-//            }
-//        }
-        return $attributeValues;
-    }
-
-    /**
-     * Checking the data contains the same value of data after collection
-     *
-     * @return Mage_Adminhtml_Block_Catalog_Product_Edit_Tab_Super_Config_Grid
-     */
-    protected function _afterLoadCollection()
-    {
-        parent::_afterLoadCollection();
-
-        $disableMultiSelect = false;
-        $ids = array();
-        foreach ($this->_collection as $item) {
-            $ids[] = $item->getId();
-            $needleAttributeValues = $this->_retrieveRowData($item);
-            foreach($this->_collection as $item2) {
-                // Skip the data if already checked
-                if (in_array($item2->getId(), $ids)) {
-                   continue;
-                }
-                $attributeValues = $this->_retrieveRowData($item2);
-                $disableMultiSelect = ($needleAttributeValues == $attributeValues);
-                if ($disableMultiSelect) {
-                   break;
-                }
-            }
-            if ($disableMultiSelect) {
-                break;
-            }
-        }
-
-        // Disable multiselect column
-        if ($disableMultiSelect) {
-            $selectAll = $this->getColumn('in_products');
-            if ($selectAll) {
-                $selectAll->setDisabled(true);
-            }
-        }
-
-        return $this;
     }
 }

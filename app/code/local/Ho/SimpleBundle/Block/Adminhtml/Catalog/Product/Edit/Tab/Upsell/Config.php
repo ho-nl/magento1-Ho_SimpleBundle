@@ -195,15 +195,4 @@ class Ho_SimpleBundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Upsell_Config ext
     {
         return addcslashes($string, "'\r\n\\");
     }
-
-    /**
-     * Show "Use default price" checkbox
-     *
-     * @return bool
-     */
-    public function getShowUseDefaultPrice()
-    {
-        return !Mage::helper('catalog')->isPriceGlobal()
-            && $this->_getProduct()->getStoreId();
-    }
 }
