@@ -289,6 +289,9 @@ class Ho_SimpleBundle_Adminhtml_Catalog_Upsell_ProductController extends Mage_Ad
             $product->setPriceType(Mage_Bundle_Model_Product_Price::PRICE_TYPE_DYNAMIC);
             $product->unsPrice();
 
+            // Compatibility with Ho_Import, don't copy the attributes.
+            $product->unsetData('ho_import_profile');
+
             $product->validate();
             Mage::register('product', $product);
             $product->save();
