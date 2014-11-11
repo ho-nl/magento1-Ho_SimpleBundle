@@ -33,8 +33,10 @@
 
     <adminhtml_catalog_product_upsell>
         <reference name="root">
+            <action method="unsetChild"><child>catalog.product.edit.tab.upsell</child></action>
+            <action method="unsetChild"><child>upsell_grid_serializer</child></action>
             <block type="ho_simplebundle/adminhtml_catalog_product_edit_tab_upsell_config"
-                   name="admin.product.edit.tab.upsell.config" before="catalog.product.edit.tab.upsell">
+                   name="admin.product.edit.tab.upsell.config" before="-">
                 <block type="ho_simplebundle/adminhtml_catalog_product_edit_tab_upsell_config_bundle"
                        name="catalog.product.edit.tab.upsell.config.bundle" as="simplebundle">
                     <block type="ho_simplebundle/adminhtml_catalog_product_edit_tab_upsell_config_grid"
@@ -50,6 +52,9 @@
                         <action method="addColumnInputName"><input_name>qty</input_name></action>
                     </block>
                 </block>
+
+                <action method="insert"><block>catalog.product.edit.tab.upsell</block></action>
+                <action method="insert"><block>upsell_grid_serializer</block></action>
             </block>
         </reference>
     </adminhtml_catalog_product_upsell>
