@@ -5,4 +5,6 @@ app/design/frontend/base/default/layout/ho/*         app/design/frontend/base/de
 app/design/frontend/base/default/template/ho/*       app/design/frontend/base/default/template/ho/
 app/design/adminhtml/default/default/layout/ho/*     app/design/adminhtml/default/default/layout/ho/
 app/design/adminhtml/default/default/template/ho/*   app/design/adminhtml/default/default/template/ho/
+app/locale/en_US/*                                   app/locale/en_US/
+app/locale/nl_NL/*                                   app/locale/nl_NL/
 js/ho/*                        js/ho/

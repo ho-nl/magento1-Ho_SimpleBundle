@@ -86,7 +86,7 @@ if ($_product->getPriceType() == 1) {
         <?php echo $_bundleHelper->getOriginalPriceHtml($_product); ?>
     </p>
     <p class="price-to">
-        <span class="price-label"><?php echo $this->__('Bundle Price:') ?></span>
+        <span class="price-label"><?php echo Mage::helper('ho_simplebundle')->__('Bundle Price:') ?></span>
         <?php echo $_bundleHelper->getMaxPriceHtml($_product); ?>
     </p>
     <?php endif; ?>

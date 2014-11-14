@@ -81,7 +81,7 @@ class Ho_SimpleBundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Upsell_Config_Bun
                     'bundle_product_' . $attributeCode,
                      $inputType,
                      array(
-                        'label'    => $attribute->getFrontend()->getLabel(),
+                        'label'    => Mage::helper('catalog')->__($attribute->getFrontend()->getLabel()),
                         'name'     => $attributeCode,
                         'required' => $attribute->getIsRequired(),
                      )
@@ -140,7 +140,7 @@ class Ho_SimpleBundle_Block_Adminhtml_Catalog_Product_Edit_Tab_Upsell_Config_Bun
         }
 
         $fieldset->addField('products_grid', 'note', array(
-            'label' => Mage::helper('catalog')->__('Bundle Products'),
+            'label' => Mage::helper('ho_simplebundle')->__('Bundle Products'),
             'text'  => $this->getChildHtml('grid') . $this->getChildHtml('serializer')
         ));
 

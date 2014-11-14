@@ -80,6 +80,15 @@
         </catalog>
 	</global>
     <frontend>
+        <translate>
+            <modules>
+                <ho_simplebundle>
+                    <files>
+                        <default>Ho_SimpleBundle.csv</default>
+                    </files>
+                </ho_simplebundle>
+            </modules>
+        </translate>
    		<layout>
    			<updates>
    				<ho_simplebundle module="ho_simplebundle">
@@ -101,6 +110,15 @@
         </ho_bootstrap>
    	</frontend>
     <adminhtml>
+        <translate>
+            <modules>
+                <ho_simplebundle>
+                    <files>
+                        <default>Ho_SimpleBundle.csv</default>
+                    </files>
+                </ho_simplebundle>
+            </modules>
+        </translate>
         <layout>
             <updates>
                 <ho_simplebundle module="ho_simplebundle">

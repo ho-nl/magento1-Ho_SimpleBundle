@@ -82,15 +82,15 @@ $_optionsCollection->addAttributeToSelect('visibility');
             </tbody>
             <tfoot>
                 <tr class="old-price">
-                    <td><?php echo $this->__('Regular Price:') ?></td>
+                    <td><?php echo Mage::helper('ho_simplebundle')->__('Regular Price:') ?></td>
                     <td><?php echo $_bundleHelper->getOriginalPriceHtml($_product); ?></td>
                 </tr>
                 <tr class="price-notice">
-                    <td><?php echo $this->__('Bundle Discount:') ?></td>
+                    <td><?php echo Mage::helper('ho_simplebundle')->__('Bundle Discount:') ?></td>
                     <td><?php echo $_bundleHelper->getDiscountPercentageHtml($_product); ?></td>
                 </tr>
                 <tr>
-                    <td><?php echo $this->__('Bundle Price:') ?></td>
+                    <td><?php echo Mage::helper('ho_simplebundle')->__('Bundle Price:') ?></td>
                     <td><?php echo $_bundleHelper->getMaxPriceHtml($_product); ?></td>
                 </tr>
             </tfoot>

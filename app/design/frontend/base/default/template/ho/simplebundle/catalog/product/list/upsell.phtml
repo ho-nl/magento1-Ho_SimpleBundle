@@ -29,7 +29,7 @@ $_helper = $this->helper('catalog/output');
 <?php if ($_productCollection->count()): ?>
 <div class="panel panel-default panel-up-sell">
     <div class="panel-heading">
-        <h2 class="panel-title"><?php echo $this->__('Bundle Discount for %s', $_parentProduct->getName()) ?></h2>
+        <h2 class="panel-title"><?php echo Mage::helper('ho_simplebundle')->__('Bundle Discount for %s', $_parentProduct->getName()) ?></h2>
     </div>
 
     <div class="panel-body products-list">
