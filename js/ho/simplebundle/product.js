@@ -108,9 +108,9 @@ Product.SimpleBundle.prototype = {
 
         var input = $$('[name="links[upsell]"]').first();
         if (input.value) {
-            input.value += result.product_id+'=cG9zaXRpb249';
+            input.value += '&'+result.product_id+'=cG9zaXRpb249MA';
         } else {
-            input.value = result.product_id+'=cG9zaXRpb249';
+            input.value = result.product_id+'=cG9zaXRpb249MA';
         }
             console.log(input.value);
 
