@@ -115,7 +115,7 @@ class Ho_SimpleBundle_Helper_Data extends Mage_Core_Helper_Abstract
     public function getDiscountPercentageHtml(Mage_Catalog_Model_Product $product, $qty = 1)
     {
         return $this->_renderPercentage(
-            $this->_getDiscountPrice($product) / $this->_getOriginalPrice($product, true) * 100
+            $this->_getDiscountPrice($product) / $this->_getOriginalPrice($product, !Mage::getStoreConfig('ho_simplebundle/general/percentage_including_original')) * 100
         );
     }
 
