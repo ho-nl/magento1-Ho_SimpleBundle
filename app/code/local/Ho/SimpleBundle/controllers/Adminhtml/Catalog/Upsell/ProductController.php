@@ -285,7 +285,6 @@ class Ho_SimpleBundle_Adminhtml_Catalog_Upsell_ProductController extends Mage_Ad
                 $product->setWeightType(1);
             }
 
-            $product->setVisibility(1);
             $product->setPriceType(Mage_Bundle_Model_Product_Price::PRICE_TYPE_DYNAMIC);
             $product->unsPrice();
 

@@ -59,7 +59,6 @@ class Ho_SimpleBundle_Model_Bundle_Product_Type extends Mage_Bundle_Model_Produc
             $product->setTypeHasOptions(false);
             $product->setTypeHasRequiredOptions(false);
             $product->canAffectOptions(true);
-            $product->setVisibility(1); //@todo make bundle product page.
         }
 
         return $this;
