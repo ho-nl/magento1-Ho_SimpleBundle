@@ -272,7 +272,11 @@ class Ho_SimpleBundle_Adminhtml_Catalog_Upsell_ProductController extends Mage_Ad
                 $product->setName(implode(' + ', $name));
             }
             if ($product->getSkuAutogenerate()) {
-                $product->setSku(implode('+', $sku));
+                $sku = implode('+', $sku);
+                if (Mage::helper('core/string')->strlen($sku) > Mage_Catalog_Model_Product_Attribute_Backend_Sku::SKU_MAX_LENGTH) {
+                    $sku = Mage::helper('core/string')->substr($sku, 0, Mage_Catalog_Model_Product_Attribute_Backend_Sku::SKU_MAX_LENGTH);
+                }
+                $product->setSku($sku);
             } else {
                 $productInfo = $this->getRequest()->getParam('product');
                 if (isset($productInfo['bundle_product_sku_type']) && $productInfo['bundle_product_sku_type']) {
