@@ -46,4 +46,9 @@ class Ho_SimpleBundle_Adminhtml_Catalog_ProductController extends Mage_Adminhtml
             ->setProductsCrossSell($this->getRequest()->getPost('products_crosssell', null));
         $this->renderLayout();
     }
+
+    function _isAllowed()
+    {
+        return Mage::getSingleton('admin/session')->isAllowed('system/config/ho_simplebundle');
+    }
 }
