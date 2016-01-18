@@ -1,0 +1,10 @@
+{
+    "name": "ho-nl/ho_simplebundle",
+    "type": "magento-module",
+    "license":"OSL-3.0",
+    "description":"Create bundles that don't have any options to choose from and are simple to create.",
+    "homepage": "https://www.h-o.nl/ho-simplebundles",
+    "require": {
+      "magento-hackathon/magento-composer-installer": "*"
+    }
+}
