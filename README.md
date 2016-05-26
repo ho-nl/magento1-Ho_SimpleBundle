@@ -16,3 +16,5 @@ At this moment it is not possible to use simple bundles standalone. All simple b
 ### Frontend example product page:
 ![Frontend](readme/frontend.png)
 
+### About us
+We at H&O build high quality [magento webshops](https://www.h-o.nl/magento-webshops) with a focus on technique. We like sharing our knowledge and interacting with the magento community and making e-commerce even greater.
